@@ -9,7 +9,6 @@ using SiraUtil.Tools;
 using UnityEngine;
 using Zenject;
 
-
 namespace CustomBanners.Configuration.UI.Views
 {
     [ViewDefinition("CustomBanners.Configuration.UI.Views.SettingsView.bsml")]

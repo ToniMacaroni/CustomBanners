@@ -43,8 +43,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configuration\UI\Views\ImageListView.bsml" />
-    <None Remove="Configuration\UI\Views\SettingsView.bsml" />
     <None Remove="Resources\assets" />
   </ItemGroup>
 
@@ -201,10 +199,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\UI\Views\ImageListView.bsml" />
-    <EmbeddedResource Include="Configuration\UI\Views\SettingsView.bsml" />
     <EmbeddedResource Include="manifest.json" />
     <EmbeddedResource Include="Resources\assets" />
+    <EmbeddedResource Include="**\*.bsml" />
   </ItemGroup>
 
   <ItemGroup>

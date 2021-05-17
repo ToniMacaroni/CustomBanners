@@ -23,7 +23,6 @@ namespace CustomBanners
 
             zenjector.OnApp<PluginAppInstaller>().WithParameters(conf.Generated<PluginConfig>(), logger);
             zenjector.OnMenu<PluginMenuInstaller>();
-            zenjector.OnGame<PluginGameInstaller>();
         }
 
         [OnEnable]

@@ -17,7 +17,7 @@ using Zenject;
 
 namespace CustomBanners.Configuration.UI.Views
 {
-    [ViewDefinition("CustomBanners.Configuration.UI.Views.ImageListView")]
+    [ViewDefinition("CustomBanners.Configuration.UI.Views.ImageListView.bsml")]
     [HotReload(RelativePathToLayout = @"ImageListView")]
     internal class ImageListView : BSMLAutomaticViewController
     {

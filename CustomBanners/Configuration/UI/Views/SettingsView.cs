@@ -12,7 +12,7 @@ using Zenject;
 
 namespace CustomBanners.Configuration.UI.Views
 {
-    [ViewDefinition("CustomPillows.Configuration.UI.Views.SettingsView")]
+    [ViewDefinition("CustomBanners.Configuration.UI.Views.SettingsView.bsml")]
     [HotReload(RelativePathToLayout = @"SettingsView")]
     internal class SettingsView : BSMLAutomaticViewController
     {

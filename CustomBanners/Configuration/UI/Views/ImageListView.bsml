@@ -1,0 +1,12 @@
+﻿<vertical spacing="4" pad-top="1" xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <horizontal>
+    <button pref-width='25' pref-height='10' text='Left Banner' on-click='OnLeftBannerSelected'/>
+    <button pref-width='25' pref-height='10' text='Right Banner' on-click='OnRightBannerSelected'/>
+  </horizontal>
+  <vertical spacing='4' pad='2' bg='round-rect-panel' bg-color='#00000080'>
+    <text font-align='Center' text='~SelectedBanner'/>
+    <page-button event-click='image-list#PageUp' direction='Up' />
+    <list id='image-list' select-cell='image-selected'/>
+    <page-button event-click='image-list#PageDown' direction='Down' />
+  </vertical>
+</vertical>

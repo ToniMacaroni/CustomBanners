@@ -38,7 +38,6 @@ namespace CustomBanners.Configuration.UI.Views
         {
             _selectedBanner = _bannerManager.GetBanner((EBannerType) idx);
             _parserParams.EmitEvent("update");
-            Debug.LogError("Changed Selection " + _selectedBanner.GlowEnabled);
         }
 
         private bool IsGlowEnabled

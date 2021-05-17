@@ -42,9 +42,11 @@ namespace CustomBanners.Helpers
 
         public static Texture2D CreateTexture(byte[] data, string name)
         {
-            var tex = new Texture2D(2, 2);
+            var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
             tex.LoadImage(data);
             tex.name = name;
+            tex.wrapMode = TextureWrapMode.Clamp;
+            tex.filterMode = FilterMode.Trilinear;
             return tex;
         }
     }

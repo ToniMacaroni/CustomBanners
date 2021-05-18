@@ -45,7 +45,7 @@ namespace CustomBanners.Helpers
             var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
             tex.LoadImage(data);
             tex.name = name;
-            tex.wrapMode = TextureWrapMode.Clamp;
+            tex.wrapMode = TextureWrapMode.Repeat;
             tex.filterMode = FilterMode.Trilinear;
             return tex;
         }

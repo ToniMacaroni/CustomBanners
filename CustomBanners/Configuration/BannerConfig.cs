@@ -8,6 +8,10 @@
 
         public bool RandomFluctuationEnabled { get; set; } = false;
 
+        public bool FlipHorizontal { get; set; } = false;
+
+        public float Intensity { get; set; } = 1;
+
         public string SelectedTexture { get; set; } = "";
     }
 }

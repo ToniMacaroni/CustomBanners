@@ -81,6 +81,10 @@ namespace CustomBanners.Configuration.UI.Views
             {
                 _imageList.tableView.SelectCellWithIdx(texIdx);
             }
+            else
+            {
+                _imageList.tableView.ClearSelection();
+            }
 
             NotifyPropertyChanged(nameof(SelectedBanner));
             OnBannerSelected?.Invoke(idx);

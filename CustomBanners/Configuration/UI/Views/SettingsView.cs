@@ -59,6 +59,26 @@ namespace CustomBanners.Configuration.UI.Views
             }
         }
 
+        private bool FlipHorizontal
+        {
+            get => _selectedBanner?.FlipHorizontal ?? false;
+            set
+            {
+                if (_selectedBanner == null) return;
+                _selectedBanner.FlipHorizontal = value;
+            }
+        }
+
+        private float Intensity
+        {
+            get => _selectedBanner?.Intensity ?? 1;
+            set
+            {
+                if (_selectedBanner == null) return;
+                _selectedBanner.Intensity = value;
+            }
+        }
+
         private bool RandomFluctuationEnabled
         {
             get => _selectedBanner?.RandomFluctuationEnabled ?? false;

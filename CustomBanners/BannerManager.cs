@@ -133,6 +133,26 @@ namespace CustomBanners
                 }
             }
 
+            public bool FlipHorizontal
+            {
+                get => _config.FlipHorizontal;
+                set
+                {
+                    _config.FlipHorizontal = value;
+                    Material?.SetTextureScale("_MainTex", value?new Vector2(-1, 1) : Vector2.one);
+                }
+            }
+
+            public float Intensity
+            {
+                get => _config.Intensity;
+                set
+                {
+                    _config.Intensity = value;
+                    Material?.SetFloat("_Intensity", value);
+                }
+            }
+
             public bool RandomFluctuationEnabled
             {
                 get => _config.RandomFluctuationEnabled;
@@ -175,6 +195,8 @@ namespace CustomBanners
                 Material = new Material(materialPrefab);
                 GlowEnabled = GlowEnabled;
                 ShouldTint = ShouldTint;
+                FlipHorizontal = FlipHorizontal;
+                Intensity = Intensity;
             }
 
             private static readonly Color TintColor = new Color(0, 0.7529412f, 1);

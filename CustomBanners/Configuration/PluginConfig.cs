@@ -14,5 +14,7 @@ namespace CustomBanners.Configuration
         public BannerConfig LeftBanner { get; set; } = new BannerConfig();
 
         public BannerConfig RightBanner { get; set; } = new BannerConfig();
+
+        public float Position { get; set; } = 0f;
     }
 }

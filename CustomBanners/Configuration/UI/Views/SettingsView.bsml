@@ -1,6 +1,7 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
   <vertical pref-width='100' bg='round-rect-panel' bg-color='#00000080' pad='5' vertical-fit='PreferredSize' spacing='5'>
     <checkbox text='Enabled' value='IsModEnabled' apply-on-change='true'/>
+    <slider-setting value='BannerPosition' text='Position' max='15' increment='0.5' apply-on-change='true'/>
     <vertical pad='5' spacing='2' bg='round-rect-panel' bg-color='#00000080' horizontal-fit='Unconstrained'>
       <checkbox value='IsGlowEnabled' text='Glow' apply-on-change='true' get-event='update'/>
       <checkbox value='ShouldTint' text='Tint' apply-on-change='true' get-event='update'/>

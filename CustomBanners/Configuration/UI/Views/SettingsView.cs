@@ -89,6 +89,16 @@ namespace CustomBanners.Configuration.UI.Views
             }
         }
 
+        private float BannerPosition
+        {
+            get => _config.Position;
+            set
+            {
+                _config.Position = value;
+                _bannerManager.SetPosition(value);
+            }
+        }
+
         private bool IsModEnabled
         {
             get => _config.IsEnabled;

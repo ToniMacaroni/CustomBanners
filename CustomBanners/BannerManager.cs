@@ -21,6 +21,9 @@ namespace CustomBanners
         private readonly SiraLog _logger;
         private readonly PluginConfig _config;
 
+        private readonly Vector3 _ogPosition;
+        private readonly Transform _parent;
+
         private BannerManager(SiraLog logger, PluginConfig config)
         {
             _logger = logger;
@@ -28,6 +31,11 @@ namespace CustomBanners
 
             var bannerRenderers =
                 Object.FindObjectsOfType<SkinnedMeshRenderer>().Where(x => x.name == "Flag").ToArray();
+
+            _parent = bannerRenderers[0].transform.parent.parent;
+            _ogPosition = _parent.position;
+
+            SetPosition(config.Position);
 
             if (bannerRenderers.Length < 2)
             {
@@ -46,6 +54,11 @@ namespace CustomBanners
                 banner.SetMaterial(mat);
                 banner.IsCustomMaterialEnabled = _config.IsEnabled;
             }
+        }
+
+        public void SetPosition(float pos)
+        {
+            _parent.position = _ogPosition + new Vector3(0, 0, pos);
         }
 
         public Banner GetBanner(EBannerType bannerType)

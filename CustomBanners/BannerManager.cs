@@ -84,7 +84,6 @@ namespace CustomBanners
 
         public void Dispose()
         {
-            Disable();
         }
 
         private void SetupBanner(SkinnedMeshRenderer renderer, BannerConfig bannerConfig)
@@ -195,13 +194,13 @@ namespace CustomBanners
 
             public void RevertMaterial()
             {
-                if (Renderer is null) return;
+                if (Renderer is null || _ogMaterial is null) return;
                 Renderer.material = _ogMaterial;
             }
 
             public void ApplyMaterial()
             {
-                if (Renderer is null) return;
+                if (Renderer is null || Material is null) return;
                 Renderer.material = Material;
             }
 

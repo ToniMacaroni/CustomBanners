@@ -195,11 +195,13 @@ namespace CustomBanners
 
             public void RevertMaterial()
             {
+                if (Renderer is null) return;
                 Renderer.material = _ogMaterial;
             }
 
             public void ApplyMaterial()
             {
+                if (Renderer is null) return;
                 Renderer.material = Material;
             }
 

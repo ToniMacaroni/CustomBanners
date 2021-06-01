@@ -10,55 +10,87 @@ using Newtonsoft.Json;
 using SiraUtil.Tools;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace CustomBanners
 {
     internal class BannerManager : IDisposable
     {
+        public bool BannersEnabled
+        {
+            get => _bannersEnabled;
+            set
+            {
+                _bannersEnabled = value;
+                if(_bannersEnabled) Enable();
+                else Disable();
+            }
+        }
+
         private readonly List<Banner> _banners = new List<Banner>();
 
         private readonly SiraLog _logger;
         private readonly PluginConfig _config;
 
-        private readonly Vector3 _ogPosition;
-        private readonly Transform _parent;
+        private GameObject _container;
+        private Vector3 _ogPosition;
+        private Transform _parent;
+
+        private bool _bannersEnabled;
 
         private BannerManager(SiraLog logger, PluginConfig config)
         {
             _logger = logger;
             _config = config;
+        }
 
-            var bannerRenderers =
-                Object.FindObjectsOfType<SkinnedMeshRenderer>().Where(x => x.name == "Flag").ToArray();
+        public void InitBanners(GameObject container)
+        {
+            _container = Object.Instantiate(container);
+
+            var bannerRenderers = _container.GetComponentsInChildren<Renderer>();
+
+            Debug.LogError(bannerRenderers.Length);
 
             _parent = bannerRenderers[0].transform.parent.parent;
             _ogPosition = _parent.position;
 
-            SetPosition(config.Position);
-
             if (bannerRenderers.Length < 2)
             {
-                logger.Error("Banners not found");
+                _logger.Error("Banners not found");
                 return;
             }
-            
-            SetupBanner(bannerRenderers[0], config.RightBanner);
-            SetupBanner(bannerRenderers[1], config.LeftBanner);
-        }
 
-        public void SetMaterial(Material mat)
-        {
-            foreach (var banner in _banners)
-            {
-                banner.SetMaterial(mat);
-                banner.IsCustomMaterialEnabled = _config.IsEnabled;
-            }
+            SetupBanner(bannerRenderers[0], _config.RightBanner);
+            SetupBanner(bannerRenderers[1], _config.LeftBanner);
+
+            SetPosition(_config.Position);
+
+            BannersEnabled = _config.IsEnabled;
         }
 
         public void SetPosition(float pos)
         {
+            foreach (var banner in _banners)
+            {
+                banner.ClothActive = false;
+            }
+
             _parent.position = _ogPosition + new Vector3(0, 0, pos);
+
+            foreach (var banner in _banners)
+            {
+                banner.ClothActive = true;
+            }
+        }
+
+        public void SetWindStrength(float strength)
+        {
+            foreach (var banner in _banners)
+            {
+                banner.ClothActive = false;
+                banner.WindStrength = strength;
+                banner.ClothActive = true;
+            }
         }
 
         public Banner GetBanner(EBannerType bannerType)
@@ -68,25 +100,19 @@ namespace CustomBanners
 
         public void Enable()
         {
-            foreach (var banner in _banners)
-            {
-                banner.IsCustomMaterialEnabled = true;
-            }
+            _container.SetActive(true);
         }
 
         public void Disable()
         {
-            foreach (var banner in _banners)
-            {
-                banner.IsCustomMaterialEnabled = false;
-            }
+            _container.SetActive(false);
         }
 
         public void Dispose()
         {
         }
 
-        private void SetupBanner(SkinnedMeshRenderer renderer, BannerConfig bannerConfig)
+        private void SetupBanner(Renderer renderer, BannerConfig bannerConfig)
         {
             var banner = new Banner(renderer, bannerConfig);
             _banners.Add(banner);
@@ -96,7 +122,7 @@ namespace CustomBanners
         {
             public GameObject GameObject { get; }
 
-            public SkinnedMeshRenderer Renderer { get; }
+            public Renderer Renderer { get; }
 
             public Transform Transform { get; }
 
@@ -111,18 +137,7 @@ namespace CustomBanners
                 }
             }
 
-            public Material Material { get; private set; }
-
-            public bool IsCustomMaterialEnabled
-            {
-                get => _isCustomMaterialEnabled;
-                set
-                {
-                    _isCustomMaterialEnabled = value;
-                    if(value) ApplyMaterial();
-                    else RevertMaterial();
-                }
-            }
+            public Material Material { get; }
 
             public bool GlowEnabled
             {
@@ -165,48 +180,35 @@ namespace CustomBanners
                 }
             }
 
-            public bool RandomFluctuationEnabled
+            public float WindStrength
             {
-                get => _config.RandomFluctuationEnabled;
+                get => _config.WindStrength;
                 set
                 {
-                    _config.RandomFluctuationEnabled = value;
-                    _clothRandomFluctuation.enabled = value;
+                    _config.WindStrength = value;
+                    _cloth.externalAcceleration = new Vector3(0, 0, -value);
                 }
             }
 
-            private readonly Material _ogMaterial;
-            private readonly BannerConfig _config;
-            private readonly ClothRandomFluctuation _clothRandomFluctuation;
-            private bool _isCustomMaterialEnabled;
+            public bool ClothActive
+            {
+                get => _cloth.enabled;
+                set => _cloth.enabled = value;
+            }
 
-            public Banner(SkinnedMeshRenderer renderer, BannerConfig config)
+            private readonly BannerConfig _config;
+            private readonly Cloth _cloth;
+
+            public Banner(Renderer renderer, BannerConfig config)
             {
                 _config = config;
                 GameObject = renderer.gameObject;
                 Renderer = renderer;
                 Transform = GameObject.transform;
-                _ogMaterial = Renderer.material;
-                _clothRandomFluctuation = GameObject.GetComponent<ClothRandomFluctuation>();
+                _cloth = GameObject.GetComponent<Cloth>();
+                Material = renderer.material;
 
-                RandomFluctuationEnabled = RandomFluctuationEnabled;
-            }
-
-            public void RevertMaterial()
-            {
-                if (Renderer is null || _ogMaterial is null) return;
-                Renderer.material = _ogMaterial;
-            }
-
-            public void ApplyMaterial()
-            {
-                if (Renderer is null || Material is null) return;
-                Renderer.material = Material;
-            }
-
-            public void SetMaterial(Material materialPrefab)
-            {
-                Material = new Material(materialPrefab);
+                WindStrength = WindStrength;
                 GlowEnabled = GlowEnabled;
                 ShouldTint = ShouldTint;
                 FlipHorizontal = FlipHorizontal;

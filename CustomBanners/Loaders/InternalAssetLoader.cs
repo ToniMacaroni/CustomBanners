@@ -13,7 +13,7 @@ namespace CustomBanners.Loaders
 
         private readonly SiraLog _logger;
 
-        public Material Material { get; private set; }
+        public GameObject FlagContainer { get; private set; }
 
         public bool IsLoaded { get; private set; }
 
@@ -26,10 +26,10 @@ namespace CustomBanners.Loaders
         {
             if (IsLoaded) return;
 
-            var loader = new EmbeddedAssetBundleLoader<Material>(BundlePath, "_BannerMat");
+            var loader = new EmbeddedAssetBundleLoader<GameObject>(BundlePath, "FlagContainer");
             var loadResult = await loader.LoadAsync();
             if (!loadResult.Success) return;
-            Material = loadResult.Asset;
+            FlagContainer = loadResult.Asset;
 
             IsLoaded = true;
         }

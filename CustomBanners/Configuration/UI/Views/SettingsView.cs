@@ -79,14 +79,10 @@ namespace CustomBanners.Configuration.UI.Views
             }
         }
 
-        private bool RandomFluctuationEnabled
+        private float WindStrength
         {
-            get => _selectedBanner?.RandomFluctuationEnabled ?? false;
-            set
-            {
-                if (_selectedBanner == null) return;
-                _selectedBanner.RandomFluctuationEnabled = value;
-            }
+            get => _selectedBanner?.WindStrength ?? 0.5f;
+            set => _bannerManager.SetWindStrength(value);
         }
 
         private float BannerPosition

@@ -23,7 +23,7 @@ namespace CustomBanners.Configuration.UI.Views
     {
         public event Action<int> OnBannerSelected; 
 
-        public string SelectedBanner => _selectedBannerIndex==0?"Right Banner":"Left Banner";
+        public string SelectedBanner => _selectedBannerIndex==0? "Left Banner" : "Right Banner";
 
         [UIComponent("image-list")] private readonly CustomListTableData _imageList = null;
 
@@ -63,12 +63,12 @@ namespace CustomBanners.Configuration.UI.Views
 
         private void OnLeftBannerSelected()
         {
-            SelectBanner(1);
+            SelectBanner(0);
         }
 
         private void OnRightBannerSelected()
         {
-            SelectBanner(0);
+            SelectBanner(1);
         }
 
         private void SelectBanner(int idx)

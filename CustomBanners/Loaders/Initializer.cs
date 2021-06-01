@@ -48,7 +48,7 @@ namespace CustomBanners.Loaders
 
             await _prefabLoader.LoadAsync();
 
-            _bannerManager.SetMaterial(_prefabLoader.Material);
+            _bannerManager.InitBanners(_prefabLoader.FlagContainer);
 
             await LoadTexture(_config.LeftBanner, EBannerType.Left);
             await LoadTexture(_config.RightBanner, EBannerType.Right);

@@ -6,7 +6,7 @@
 
         public bool ShouldTint { get; set; } = true;
 
-        public bool RandomFluctuationEnabled { get; set; } = false;
+        public float WindStrength { get; set; } = 0.5f;
 
         public bool FlipHorizontal { get; set; } = false;
 

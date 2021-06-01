@@ -74,12 +74,9 @@ namespace CustomBanners.Configuration.UI
             if (modEnabled)
             {
                 _initializer.Initialize();
-                _bannerManager.Enable();
             }
-            else
-            {
-                _bannerManager.Disable();
-            }
+
+            _bannerManager.BannersEnabled = modEnabled;
         }
     }
 }

@@ -1,6 +1,6 @@
 # CustomBanners
 ## Installation
-- Head over to [Releases](https://github.com/ToniMacaroni/CustomBanners)
+- Head over to [Releases](https://github.com/ToniMacaroni/CustomBanners/releases)
 - Download the newest one (make sure to download the zip that starts with "CustomBanners")
 - Unzip the downloaded file in your Beat Saber directory
 

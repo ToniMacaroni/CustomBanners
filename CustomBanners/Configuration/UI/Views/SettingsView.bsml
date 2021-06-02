@@ -3,11 +3,16 @@
     <checkbox text='Enabled' value='IsModEnabled' apply-on-change='true'/>
     <slider-setting value='BannerPosition' text='Position' max='15' increment='0.5' apply-on-change='true'/>
     <slider-setting value='WindStrength' text='Wind Strength' increment='0.1' max='3' apply-on-change='true' get-event='update'/>
-    <vertical pad='5' spacing='2' bg='round-rect-panel' bg-color='#00000080' horizontal-fit='Unconstrained'>
+    <vertical pad='5' spacing='1' bg='round-rect-panel' bg-color='#00000080' horizontal-fit='Unconstrained'>
       <checkbox value='IsGlowEnabled' text='Glow' apply-on-change='true' get-event='update'/>
       <checkbox value='ShouldTint' text='Tint' apply-on-change='true' get-event='update'/>
       <checkbox value='FlipHorizontal' text='Flip Texture Horizontally' apply-on-change='true' get-event='update'/>
       <slider-setting value='Intensity' text='Intensity' increment='0.2' max='10' apply-on-change='true' get-event='update'/>
+      <horizontal spacing='5'>
+        <color-setting value='Tint' text='Tint' apply-on-change='true' get-event='update' />
+        <button text='Sync' on-click='sync-clicked'/>
+        <button text='Reset' on-click='tint-reset-clicked'/>
+      </horizontal>
     </vertical>
   </vertical>
 </bg>

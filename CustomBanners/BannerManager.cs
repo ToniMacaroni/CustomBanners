@@ -156,7 +156,18 @@ namespace CustomBanners
                 set
                 {
                     _config.ShouldTint = value;
-                    Material?.SetColor("_Color", value ? TintColor : Color.white);
+                    Material?.SetColor("_Color", value ? _config.Tint : Color.white);
+                }
+            }
+
+            public Color Tint
+            {
+                get => _config.Tint;
+                set
+                {
+                    _config.Tint = value;
+                    if (!_config.ShouldTint) return;
+                    Material?.SetColor("_Color", value);
                 }
             }
 
@@ -211,8 +222,14 @@ namespace CustomBanners
                 WindStrength = WindStrength;
                 GlowEnabled = GlowEnabled;
                 ShouldTint = ShouldTint;
+                Tint = Tint;
                 FlipHorizontal = FlipHorizontal;
                 Intensity = Intensity;
+            }
+
+            public void ResetTint()
+            {
+                Tint = TintColor;
             }
 
             private static readonly Color TintColor = new Color(0, 0.7529412f, 1);

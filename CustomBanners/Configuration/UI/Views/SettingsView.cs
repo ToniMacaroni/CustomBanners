@@ -39,6 +39,19 @@ namespace CustomBanners.Configuration.UI.Views
             _parserParams.EmitEvent("update");
         }
 
+        [UIAction("sync-clicked")]
+        public void OnSync()
+        {
+            _bannerManager.GetBanner(EBannerType.Left).Tint = Tint;
+            _bannerManager.GetBanner(EBannerType.Right).Tint = Tint;
+        }
+
+        [UIAction("tint-reset-clicked")]
+        public void OnTintReset()
+        {
+            _selectedBanner?.ResetTint();
+        }
+
         private bool IsGlowEnabled
         {
             get => _selectedBanner?.GlowEnabled ?? false;
@@ -56,6 +69,16 @@ namespace CustomBanners.Configuration.UI.Views
             {
                 if (_selectedBanner == null) return;
                 _selectedBanner.ShouldTint = value;
+            }
+        }
+
+        private Color Tint
+        {
+            get => _selectedBanner?.Tint ?? Color.white;
+            set
+            {
+                if (_selectedBanner == null) return;
+                _selectedBanner.Tint = value;
             }
         }
 

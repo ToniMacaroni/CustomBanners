@@ -22,6 +22,9 @@ namespace CustomBanners.Loaders
         private readonly DirectoryInfo _imageDirectory;
         private readonly SiraLog _logger;
 
+        private static readonly List<string> HandledExtensions
+            = new List<string> {".png", ".jpg", ".jpeg"};
+
         private ImageLoader(SiraLog logger)
         {
             _logger = logger;
@@ -35,19 +38,19 @@ namespace CustomBanners.Loaders
         /// <summary>
         /// Load a texture by it's name
         /// </summary>
-        /// <param name="name">Name the texture</param>
+        /// <param name="fileName"></param>
         /// <param name="skipCheck">Skip file exists check</param>
-        public async Task LoadAsync(string name, bool skipCheck = false)
+        public async Task LoadAsync(string fileName, bool skipCheck = false)
         {
-            if (Images.ContainsKey(name)) return;
+            if (Images.ContainsKey(fileName)) return;
 
-            var file = _imageDirectory.File(name + ".png");
+            var file = _imageDirectory.File(fileName);
             if (!skipCheck && !file.Exists) return;
 
             var data = await file.ReadFileDataAsync();
-            var tex = CommonExtensions.CreateTexture(data, name);
+            var tex = CommonExtensions.CreateTexture(data, fileName);
 
-            Images.Add(name, tex);
+            Images.Add(fileName, tex);
         }
 
         /// <summary>
@@ -58,13 +61,14 @@ namespace CustomBanners.Loaders
         {
             if (IsLoaded) return;
 
-            foreach (var file in _imageDirectory.EnumerateFiles("*.png"))
+            foreach (var file in _imageDirectory.EnumerateFiles())
             {
+                if (!HandledExtensions.Contains(file.Extension)) continue;
+
                 // don't load the template
                 if (string.Equals(file.Name, "template.png", StringComparison.OrdinalIgnoreCase)) continue;
 
-                var name = file.Name.Replace(".png", "");
-                await LoadAsync(name, true);
+                await LoadAsync(file.Name, true);
             }
 
             IsLoaded = true;

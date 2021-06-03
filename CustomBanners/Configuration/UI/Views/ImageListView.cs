@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BeatSaberMarkupLanguage;
@@ -112,7 +113,7 @@ namespace CustomBanners.Configuration.UI.Views
             var cells = new List<CustomListTableData.CustomCellInfo>();
             foreach (var tex in textures)
             {
-                var cell = new CustomListTableData.CustomCellInfo(tex.name, null, Utilities.LoadSpriteFromTexture(tex));
+                var cell = new CustomListTableData.CustomCellInfo(Path.GetFileNameWithoutExtension(tex.name), null, Utilities.LoadSpriteFromTexture(tex));
                 cells.Add(cell);
             }
 

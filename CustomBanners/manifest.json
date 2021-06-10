@@ -3,7 +3,7 @@
   "id": "CustomBanners",
   "name": "CustomBanners",
   "author": "Toni Macaroni",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Give your menu a little spice",
   "gameVersion": "1.16.1",
   "dependsOn": {

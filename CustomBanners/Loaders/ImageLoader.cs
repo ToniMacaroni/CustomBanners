@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using CustomBanners;
+using CustomBanners.Graphics;
 using CustomBanners.Helpers;
 using IPA.Utilities;
 using IPA.Utilities.Async;
@@ -17,7 +18,7 @@ namespace CustomBanners.Loaders
     {
         public bool IsLoaded { get; private set; }
 
-        public Dictionary<string, Texture2D> Images;
+        public Dictionary<string, IGraphic> Images;
 
         private readonly DirectoryInfo _imageDirectory;
         private readonly SiraLog _logger;
@@ -32,7 +33,7 @@ namespace CustomBanners.Loaders
             _imageDirectory = new DirectoryInfo(Path.Combine(UnityGame.UserDataPath, Plugin.Name, "Images"));
             _imageDirectory.Create();
 
-            Images = new Dictionary<string, Texture2D>();
+            Images = new Dictionary<string, IGraphic>();
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace CustomBanners.Loaders
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="skipCheck">Skip file exists check</param>
-        public async Task LoadAsync(string fileName, bool skipCheck = false)
+        public async Task LoadAsync(string fileName, bool skipCheck = false, bool animated = false)
         {
             if (Images.ContainsKey(fileName)) return;
 
@@ -48,9 +49,17 @@ namespace CustomBanners.Loaders
             if (!skipCheck && !file.Exists) return;
 
             var data = await file.ReadFileDataAsync();
-            var tex = CommonExtensions.CreateTexture(data, fileName);
-
-            Images.Add(fileName, tex);
+            IGraphic graphic = null;
+            if (animated)
+            {
+                // TODO: Implement animations
+            }
+            else
+            {
+                var tex = CommonExtensions.CreateTexture(data, fileName);
+                graphic = new TextureGraphic(tex);
+            }
+            Images.Add(fileName, graphic);
         }
 
         /// <summary>
@@ -68,12 +77,12 @@ namespace CustomBanners.Loaders
                 // don't load the template
                 if (string.Equals(file.Name, "template.png", StringComparison.OrdinalIgnoreCase)) continue;
 
-                await LoadAsync(file.Name, true);
+                await LoadAsync(file.Name, true, file.Extension == ".gif");
             }
 
             IsLoaded = true;
         }
 
-        public bool TryGetImage(string name, out Texture2D tex) => Images.TryGetValue(name, out tex);
+        public bool TryGetImage(string name, out IGraphic tex) => Images.TryGetValue(name, out tex);
     }
 }

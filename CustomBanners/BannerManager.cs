@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CustomBanners.Configuration;
+using CustomBanners.Graphics;
 using CustomBanners.Loaders;
 using Newtonsoft.Json;
 using SiraUtil.Tools;
@@ -118,7 +119,7 @@ namespace CustomBanners
             _banners.Add(banner);
         }
 
-        internal class Banner
+        internal class Banner : IGraphicListener
         {
             public GameObject GameObject { get; }
 
@@ -126,7 +127,24 @@ namespace CustomBanners
 
             public Transform Transform { get; }
 
-            public Texture Texture
+            private IGraphic _graphic;
+            public IGraphic Graphic
+            {
+                get => _graphic;
+                set
+                {
+                    if (_graphic != null)
+                        _graphic.RemoveListener(this);
+                    _graphic = value;
+                    if (_graphic != null)
+                    {
+                        _graphic.AddListener(this);
+                        UpdateTexture(_graphic.Graphic);
+                    }
+                }
+            }
+
+            /*public Texture Texture
             {
                 get => Material?.mainTexture;
                 set
@@ -135,7 +153,7 @@ namespace CustomBanners
                     Material.mainTexture = value;
                     _config.SelectedTexture = value.name;
                 }
-            }
+            }*/
 
             public Material Material { get; }
 
@@ -230,6 +248,13 @@ namespace CustomBanners
             public void ResetTint()
             {
                 Tint = TintColor;
+            }
+
+            public void UpdateTexture(Texture2D newTexture)
+            {
+                if (Material == null) return;
+                Material.mainTexture = newTexture;
+                _config.SelectedTexture = newTexture.name;
             }
 
             private static readonly Color TintColor = new Color(0, 0.7529412f, 1);

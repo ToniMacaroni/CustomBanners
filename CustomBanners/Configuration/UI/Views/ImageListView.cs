@@ -15,6 +15,7 @@ using ModestTree;
 using SiraUtil.Tools;
 using UnityEngine;
 using Zenject;
+using CustomBanners.Graphics;
 
 namespace CustomBanners.Configuration.UI.Views
 {
@@ -32,7 +33,7 @@ namespace CustomBanners.Configuration.UI.Views
         private PluginConfig _config;
         private ImageLoader _imageLoader;
 
-        private IList<Texture2D> _textures;
+        private IList<IGraphic> _textures;
         private int _selectedBannerIndex;
         private BannerManager.Banner _selectedBanner;
         private BannerManager _bannerManager;
@@ -59,7 +60,7 @@ namespace CustomBanners.Configuration.UI.Views
         [UIAction("image-selected")]
         private void OnImageSelected(TableView _, int idx)
         {
-            _selectedBanner.Texture = _textures[idx];
+            _selectedBanner.Graphic = _textures[idx];
         }
 
         private void OnLeftBannerSelected()
@@ -77,7 +78,7 @@ namespace CustomBanners.Configuration.UI.Views
             _selectedBannerIndex = idx;
             _selectedBanner = _bannerManager.GetBanner((EBannerType) idx);
 
-            var texIdx = GetTexIndex(_selectedBanner?.Texture?.name);
+            var texIdx = GetTexIndex(_selectedBanner?.Graphic?.Name);
             if (texIdx!=-1)
             {
                 _imageList.tableView.SelectCellWithIdx(texIdx);
@@ -97,7 +98,7 @@ namespace CustomBanners.Configuration.UI.Views
             if (string.IsNullOrEmpty(texName)) return -1;
             for (int i = 0; i < _textures.Count; i++)
             {
-                if (_textures[i].name == texName) return i;
+                if (_textures[i].Name == texName) return i;
             }
 
             return -1;
@@ -108,12 +109,12 @@ namespace CustomBanners.Configuration.UI.Views
             FillList(_imageList, _textures);
         }
 
-        private void FillList(CustomListTableData list, IEnumerable<Texture2D> textures)
+        private void FillList(CustomListTableData list, IEnumerable<IGraphic> textures)
         {
             var cells = new List<CustomListTableData.CustomCellInfo>();
             foreach (var tex in textures)
             {
-                var cell = new CustomListTableData.CustomCellInfo(Path.GetFileNameWithoutExtension(tex.name), null, Utilities.LoadSpriteFromTexture(tex));
+                var cell = new CustomListTableData.CustomCellInfo(Path.GetFileNameWithoutExtension(tex.Name), null, Utilities.LoadSpriteFromTexture(tex.Default));
                 cells.Add(cell);
             }
 

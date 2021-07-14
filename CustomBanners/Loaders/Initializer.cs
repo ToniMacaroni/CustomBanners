@@ -68,7 +68,7 @@ namespace CustomBanners.Loaders
             {
                 var banner = _bannerManager.GetBanner(bannerType);
                 if (banner == null) return;
-                banner.Texture = tex;
+                banner.Graphic = tex;
             }
         }
     }

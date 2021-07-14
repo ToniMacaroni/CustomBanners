@@ -28,7 +28,10 @@ namespace CustomBanners.Configuration.UI.Views
         public string SelectedBanner => _selectedBannerIndex==0? "Left Banner" : "Right Banner";
 
         [UIComponent("image-list")] private readonly CustomListTableData _imageList = null;
+        [UIValue("loading")] private bool Loading => !_loaded;
+        [UIValue("loaded")] private bool Loaded => _loaded;
 
+        private bool _loaded;
         private SiraLog _logger;
         private PluginConfig _config;
         private ImageLoader _imageLoader;
@@ -51,6 +54,11 @@ namespace CustomBanners.Configuration.UI.Views
         private async void Setup()
         {
             await _imageLoader.LoadAllAsync();
+
+            _loaded = true;
+            NotifyPropertyChanged(nameof(Loaded));
+            NotifyPropertyChanged(nameof(Loading));
+
             _textures = _imageLoader.Images.Values.ToList();
             RefreshTextureList();
 

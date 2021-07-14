@@ -6,7 +6,8 @@
   <vertical spacing='4' pad='2' bg='round-rect-panel' bg-color='#00000080'>
     <text font-align='Center' text='~SelectedBanner'/>
     <page-button event-click='image-list#PageUp' direction='Up' />
-    <list id='image-list' select-cell='image-selected'/>
+    <loading active='~loading' preserve-aspect='true' />
+    <list active='~loaded' id='image-list' select-cell='image-selected'/>
     <page-button event-click='image-list#PageDown' direction='Down' />
   </vertical>
 </vertical>

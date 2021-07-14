@@ -47,6 +47,7 @@ namespace CustomBanners
         public void InitBanners(GameObject container)
         {
             _container = Object.Instantiate(container);
+            _container.name = "CustomBanners Container";
 
             var bannerRenderers = _container.GetComponentsInChildren<Renderer>();
 

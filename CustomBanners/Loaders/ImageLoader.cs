@@ -1,35 +1,34 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using CustomBanners;
+using CustomBanners.Animations;
 using CustomBanners.Graphics;
 using CustomBanners.Helpers;
 using IPA.Utilities;
-using IPA.Utilities.Async;
 using SiraUtil.Tools;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CustomBanners.Loaders
 {
-    internal class ImageLoader
+    internal class ImageLoader : IDisposable
     {
         public bool IsLoaded { get; private set; }
 
         public Dictionary<string, IGraphic> Images;
 
+        private readonly List<ProcessedAnimation> _loadedAnimations = new List<ProcessedAnimation>();
+        private readonly BannerAnimationStateUpdater _bannerAnimationStateUpdater;
         private readonly DirectoryInfo _imageDirectory;
         private readonly SiraLog _logger;
 
         private static readonly List<string> HandledExtensions
-            = new List<string> {".png", ".jpg", ".jpeg"};
+            = new List<string> { ".png", ".jpg", ".jpeg", ".gif" };
 
-        private ImageLoader(SiraLog logger)
+        private ImageLoader(SiraLog logger, BannerAnimationStateUpdater bannerAnimationStateUpdater)
         {
             _logger = logger;
-
+            _bannerAnimationStateUpdater = bannerAnimationStateUpdater;
             _imageDirectory = new DirectoryInfo(Path.Combine(UnityGame.UserDataPath, Plugin.Name, "Images"));
             _imageDirectory.Create();
 
@@ -49,10 +48,14 @@ namespace CustomBanners.Loaders
             if (!skipCheck && !file.Exists) return;
 
             var data = await file.ReadFileDataAsync();
-            IGraphic graphic = null;
+            IGraphic graphic;
             if (animated)
             {
-                // TODO: Implement animations
+                ProcessedAnimation gif = await AnimationUtilities.ProcessGIF(data, fileName);
+                GIFGraphic gifGraphic = new GIFGraphic(fileName, gif.textures.FirstOrDefault());
+                _bannerAnimationStateUpdater.Register(gifGraphic, gif);
+                _loadedAnimations.Add(gif);
+                graphic = gifGraphic;
             }
             else
             {
@@ -84,5 +87,13 @@ namespace CustomBanners.Loaders
         }
 
         public bool TryGetImage(string name, out IGraphic tex) => Images.TryGetValue(name, out tex);
+
+        public void Dispose()
+        {
+            // Lets destroy all the auto-generated textures for redundancy.
+            foreach (var processedAnim in _loadedAnimations)
+                foreach (var texture in processedAnim.textures)
+                    UnityEngine.Object.Destroy(texture);
+        }
     }
 }

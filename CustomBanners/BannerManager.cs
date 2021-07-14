@@ -145,17 +145,6 @@ namespace CustomBanners
                 }
             }
 
-            /*public Texture Texture
-            {
-                get => Material?.mainTexture;
-                set
-                {
-                    if (Material == null) return;
-                    Material.mainTexture = value;
-                    _config.SelectedTexture = value.name;
-                }
-            }*/
-
             public Material Material { get; }
 
             public bool GlowEnabled
@@ -196,7 +185,7 @@ namespace CustomBanners
                 set
                 {
                     _config.FlipHorizontal = value;
-                    Material?.SetTextureScale("_MainTex", value?new Vector2(-1, 1) : Vector2.one);
+                    Material?.SetTextureScale("_MainTex", value ? new Vector2(-1, 1) : Vector2.one);
                 }
             }
 
@@ -255,10 +244,10 @@ namespace CustomBanners
             {
                 if (Material == null) return;
                 Material.mainTexture = newTexture;
-                _config.SelectedTexture = newTexture.name;
+                _config.SelectedTexture = _graphic.Name;
             }
 
             private static readonly Color TintColor = new Color(0, 0.7529412f, 1);
         }
-    }
+    }   
 }

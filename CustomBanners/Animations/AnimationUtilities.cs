@@ -21,7 +21,10 @@ namespace CustomBanners.Animations
             for (int i = 0; i < animationInfo.frameCount; i++)
             {
                 if (animationInfo.frames.Count <= i)
-                    await Task.Yield();
+                {
+                    while (animationInfo.frames.Count <= i)
+                        await Task.Yield();
+                }
 
                 FrameInfo currentFrameInfo = animationInfo.frames[i];
                 delays[i] = currentFrameInfo.delay;
@@ -32,7 +35,6 @@ namespace CustomBanners.Animations
                     frameTexture.name = name;
                     if (i != 0)
                         frameTexture.name += $" ({i})";
-                    frameTexture.wrapMode = TextureWrapMode.Clamp;
                     frameTexture.SetPixels32(currentFrameInfo.colors);
                     frameTexture.Apply();
                 }
@@ -40,6 +42,8 @@ namespace CustomBanners.Animations
                 {
                     await Task.Yield();
                 }
+                frameTexture.wrapMode = TextureWrapMode.Repeat;
+                frameTexture.filterMode = FilterMode.Trilinear;
                 textures[i] = frameTexture;
             }
             return new ProcessedAnimation(textures, delays);

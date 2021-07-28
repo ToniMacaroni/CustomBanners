@@ -109,7 +109,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing.Design">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\System.Drawing.Design.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\System.Drawing.Design.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">

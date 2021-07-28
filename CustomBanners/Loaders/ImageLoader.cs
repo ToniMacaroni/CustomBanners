@@ -1,38 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using CustomBanners;
+using CustomBanners.Animations;
+using CustomBanners.Graphics;
 using CustomBanners.Helpers;
 using IPA.Utilities;
-using IPA.Utilities.Async;
 using SiraUtil.Tools;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CustomBanners.Loaders
 {
-    internal class ImageLoader
+    internal class ImageLoader : IDisposable
     {
         public bool IsLoaded { get; private set; }
 
-        public Dictionary<string, Texture2D> Images;
+        public Dictionary<string, IGraphic> Images;
 
+        private readonly List<ProcessedAnimation> _loadedAnimations = new List<ProcessedAnimation>();
+        private readonly BannerAnimationStateUpdater _bannerAnimationStateUpdater;
         private readonly DirectoryInfo _imageDirectory;
         private readonly SiraLog _logger;
 
         private static readonly List<string> HandledExtensions
-            = new List<string> {".png", ".jpg", ".jpeg"};
+            = new List<string> { ".png", ".jpg", ".jpeg", ".gif" };
 
-        private ImageLoader(SiraLog logger)
+        private ImageLoader(SiraLog logger, BannerAnimationStateUpdater bannerAnimationStateUpdater)
         {
             _logger = logger;
-
+            _bannerAnimationStateUpdater = bannerAnimationStateUpdater;
             _imageDirectory = new DirectoryInfo(Path.Combine(UnityGame.UserDataPath, Plugin.Name, "Images"));
             _imageDirectory.Create();
 
-            Images = new Dictionary<string, Texture2D>();
+            Images = new Dictionary<string, IGraphic>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace CustomBanners.Loaders
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="skipCheck">Skip file exists check</param>
-        public async Task LoadAsync(string fileName, bool skipCheck = false)
+        public async Task LoadAsync(string fileName, bool skipCheck = false, bool animated = false)
         {
             if (Images.ContainsKey(fileName)) return;
 
@@ -48,9 +48,21 @@ namespace CustomBanners.Loaders
             if (!skipCheck && !file.Exists) return;
 
             var data = await file.ReadFileDataAsync();
-            var tex = CommonExtensions.CreateTexture(data, fileName);
-
-            Images.Add(fileName, tex);
+            IGraphic graphic;
+            if (animated)
+            {
+                ProcessedAnimation gif = await AnimationUtilities.ProcessGIF(data, fileName);
+                GIFGraphic gifGraphic = new GIFGraphic(fileName, gif.textures.FirstOrDefault());
+                _bannerAnimationStateUpdater.Register(gifGraphic, gif);
+                _loadedAnimations.Add(gif);
+                graphic = gifGraphic;
+            }
+            else
+            {
+                var tex = CommonExtensions.CreateTexture(data, fileName);
+                graphic = new TextureGraphic(tex);
+            }
+            Images.Add(fileName, graphic);
         }
 
         /// <summary>
@@ -68,12 +80,20 @@ namespace CustomBanners.Loaders
                 // don't load the template
                 if (string.Equals(file.Name, "template.png", StringComparison.OrdinalIgnoreCase)) continue;
 
-                await LoadAsync(file.Name, true);
+                await LoadAsync(file.Name, true, file.Extension == ".gif");
             }
 
             IsLoaded = true;
         }
 
-        public bool TryGetImage(string name, out Texture2D tex) => Images.TryGetValue(name, out tex);
+        public bool TryGetImage(string name, out IGraphic tex) => Images.TryGetValue(name, out tex);
+
+        public void Dispose()
+        {
+            // Lets destroy all the auto-generated textures for redundancy.
+            foreach (var processedAnim in _loadedAnimations)
+                foreach (var texture in processedAnim.textures)
+                    UnityEngine.Object.Destroy(texture);
+        }
     }
 }

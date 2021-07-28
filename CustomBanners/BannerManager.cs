@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CustomBanners.Configuration;
+using CustomBanners.Graphics;
 using CustomBanners.Loaders;
 using Newtonsoft.Json;
 using SiraUtil.Tools;
@@ -46,6 +47,7 @@ namespace CustomBanners
         public void InitBanners(GameObject container)
         {
             _container = Object.Instantiate(container);
+            _container.name = "CustomBanners Container";
 
             var bannerRenderers = _container.GetComponentsInChildren<Renderer>();
 
@@ -118,7 +120,7 @@ namespace CustomBanners
             _banners.Add(banner);
         }
 
-        internal class Banner
+        internal class Banner : IGraphicListener
         {
             public GameObject GameObject { get; }
 
@@ -126,14 +128,20 @@ namespace CustomBanners
 
             public Transform Transform { get; }
 
-            public Texture Texture
+            private IGraphic _graphic;
+            public IGraphic Graphic
             {
-                get => Material?.mainTexture;
+                get => _graphic;
                 set
                 {
-                    if (Material == null) return;
-                    Material.mainTexture = value;
-                    _config.SelectedTexture = value.name;
+                    if (_graphic != null)
+                        _graphic.RemoveListener(this);
+                    _graphic = value;
+                    if (_graphic != null)
+                    {
+                        _graphic.AddListener(this);
+                        UpdateTexture(_graphic.Graphic);
+                    }
                 }
             }
 
@@ -177,7 +185,7 @@ namespace CustomBanners
                 set
                 {
                     _config.FlipHorizontal = value;
-                    Material?.SetTextureScale("_MainTex", value?new Vector2(-1, 1) : Vector2.one);
+                    Material?.SetTextureScale("_MainTex", value ? new Vector2(-1, 1) : Vector2.one);
                 }
             }
 
@@ -232,7 +240,14 @@ namespace CustomBanners
                 Tint = TintColor;
             }
 
+            public void UpdateTexture(Texture2D newTexture)
+            {
+                if (Material == null) return;
+                Material.mainTexture = newTexture;
+                _config.SelectedTexture = _graphic.Name;
+            }
+
             private static readonly Color TintColor = new Color(0, 0.7529412f, 1);
         }
-    }
+    }   
 }

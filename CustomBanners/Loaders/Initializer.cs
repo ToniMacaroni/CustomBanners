@@ -62,13 +62,13 @@ namespace CustomBanners.Loaders
         {
             if (string.IsNullOrWhiteSpace(config.SelectedTexture)) return;
 
-            await _imageLoader.LoadAsync(config.SelectedTexture);
+            await _imageLoader.LoadAsync(config.SelectedTexture, animated: config.SelectedTexture.ToLowerInvariant().EndsWith(".gif"));
 
             if (_imageLoader.TryGetImage(config.SelectedTexture, out var tex))
             {
                 var banner = _bannerManager.GetBanner(bannerType);
                 if (banner == null) return;
-                banner.Texture = tex;
+                banner.Graphic = tex;
             }
         }
     }

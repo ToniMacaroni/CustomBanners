@@ -1,3 +1,4 @@
+using CustomBanners.Animations;
 using CustomBanners.Configuration;
 using CustomBanners.Loaders;
 using SiraUtil;
@@ -23,7 +24,8 @@ namespace CustomBanners.Installers
             Container.BindInstance(_config).AsSingle();
 
             Container.Bind<InternalAssetLoader>().AsSingle();
-            Container.Bind<ImageLoader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ImageLoader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<BannerAnimationStateUpdater>().AsSingle();
         }
     }
 }

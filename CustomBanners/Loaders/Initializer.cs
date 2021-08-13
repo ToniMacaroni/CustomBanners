@@ -64,11 +64,11 @@ namespace CustomBanners.Loaders
 
             await _imageLoader.LoadAsync(config.SelectedTexture, animated: config.SelectedTexture.ToLowerInvariant().EndsWith(".gif"));
 
-            if (_imageLoader.TryGetImage(config.SelectedTexture, out var tex))
+            if (_imageLoader.TryGetMedia(config.SelectedTexture, out var media))
             {
                 var banner = _bannerManager.GetBanner(bannerType);
                 if (banner == null) return;
-                banner.Graphic = tex;
+                banner.SetMedia(media, handleColored:false);
             }
         }
     }

@@ -1,0 +1,9 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <vertical pref-width='100' bg='round-rect-panel' bg-color='#00000080' pad='5' vertical-fit='PreferredSize' spacing='1'>
+    <text text='Global Settings' align='Center'/>
+    <checkbox text='Enabled' value='IsModEnabled' apply-on-change='true'/>
+    <slider-setting value='BannerPosition' text='Distance' max='15' increment='0.5' apply-on-change='true'/>
+    <slider-setting value='BannerSize' text='Size' min='0.5' max='2' increment='0.1' apply-on-change='true'/>
+    <slider-setting value='WindStrength' text='Wind Strength' increment='0.1' max='3' apply-on-change='true' get-event='update'/>
+  </vertical>
+</bg>

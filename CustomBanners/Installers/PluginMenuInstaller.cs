@@ -16,6 +16,7 @@ namespace CustomBanners.Installers
             // UI stuff
             Container.Bind<ImageListView>().FromNewComponentAsViewController().AsSingle();
             Container.Bind<SettingsView>().FromNewComponentAsViewController().AsSingle();
+            Container.Bind<GlobalSettingsView>().FromNewComponentAsViewController().AsSingle();
 
             Container.Bind<PluginFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
             Container.BindInterfacesTo<MenuButtonManager>().AsSingle();

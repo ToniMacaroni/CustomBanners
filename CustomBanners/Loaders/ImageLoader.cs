@@ -15,7 +15,7 @@ namespace CustomBanners.Loaders
     {
         public bool IsLoaded { get; private set; }
 
-        public Dictionary<string, IGraphic> Images;
+        public Dictionary<string, BannerMedia> Images;
 
         private readonly List<ProcessedAnimation> _loadedAnimations = new List<ProcessedAnimation>();
         private readonly BannerAnimationStateUpdater _bannerAnimationStateUpdater;
@@ -32,7 +32,7 @@ namespace CustomBanners.Loaders
             _imageDirectory = new DirectoryInfo(Path.Combine(UnityGame.UserDataPath, Plugin.Name, "Images"));
             _imageDirectory.Create();
 
-            Images = new Dictionary<string, IGraphic>();
+            Images = new Dictionary<string, BannerMedia>();
         }
 
         /// <summary>
@@ -40,6 +40,7 @@ namespace CustomBanners.Loaders
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="skipCheck">Skip file exists check</param>
+        /// <param name="animated">is the subject an animated image</param>
         public async Task LoadAsync(string fileName, bool skipCheck = false, bool animated = false)
         {
             if (Images.ContainsKey(fileName)) return;
@@ -62,7 +63,7 @@ namespace CustomBanners.Loaders
                 var tex = CommonExtensions.CreateTexture(data, fileName);
                 graphic = new TextureGraphic(tex);
             }
-            Images.Add(fileName, graphic);
+            Images.Add(fileName, new BannerMedia(graphic));
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace CustomBanners.Loaders
             IsLoaded = true;
         }
 
-        public bool TryGetImage(string name, out IGraphic tex) => Images.TryGetValue(name, out tex);
+        public bool TryGetMedia(string name, out BannerMedia media) => Images.TryGetValue(name, out media);
 
         public void Dispose()
         {

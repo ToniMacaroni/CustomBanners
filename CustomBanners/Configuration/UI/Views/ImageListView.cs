@@ -23,7 +23,8 @@ namespace CustomBanners.Configuration.UI.Views
     [HotReload(RelativePathToLayout = @"ImageListView")]
     internal class ImageListView : BSMLAutomaticViewController
     {
-        public event Action<int> OnBannerSelected; 
+        public event Action<int> OnBannerSelected;
+        public event Action OnImageChanged;
 
         public string SelectedBanner => _selectedBannerIndex==0? "Left Banner" : "Right Banner";
 
@@ -36,9 +37,9 @@ namespace CustomBanners.Configuration.UI.Views
         private PluginConfig _config;
         private ImageLoader _imageLoader;
 
-        private IList<IGraphic> _textures;
+        private IList<BannerMedia> _mediaList;
         private int _selectedBannerIndex;
-        private BannerManager.Banner _selectedBanner;
+        private Banner _selectedBanner;
         private BannerManager _bannerManager;
 
         [Inject]
@@ -59,7 +60,7 @@ namespace CustomBanners.Configuration.UI.Views
             NotifyPropertyChanged(nameof(Loaded));
             NotifyPropertyChanged(nameof(Loading));
 
-            _textures = _imageLoader.Images.Values.ToList();
+            _mediaList = _imageLoader.Images.Values.ToList();
             RefreshTextureList();
 
             SelectBanner(0);
@@ -68,7 +69,8 @@ namespace CustomBanners.Configuration.UI.Views
         [UIAction("image-selected")]
         private void OnImageSelected(TableView _, int idx)
         {
-            _selectedBanner.Graphic = _textures[idx];
+            _selectedBanner.SetMedia(_mediaList[idx]);
+            OnImageChanged?.Invoke();
         }
 
         private void OnLeftBannerSelected()
@@ -102,11 +104,11 @@ namespace CustomBanners.Configuration.UI.Views
 
         private int GetTexIndex(string texName)
         {
-            if (_textures == null || _textures.Count == 0) return -1;
+            if (_mediaList == null || _mediaList.Count == 0) return -1;
             if (string.IsNullOrEmpty(texName)) return -1;
-            for (int i = 0; i < _textures.Count; i++)
+            for (int i = 0; i < _mediaList.Count; i++)
             {
-                if (_textures[i].Name == texName) return i;
+                if (_mediaList[i].Graphic.Name == texName) return i;
             }
 
             return -1;
@@ -114,15 +116,15 @@ namespace CustomBanners.Configuration.UI.Views
 
         public void RefreshTextureList()
         {
-            FillList(_imageList, _textures);
+            FillList(_imageList, _mediaList);
         }
 
-        private void FillList(CustomListTableData list, IEnumerable<IGraphic> textures)
+        private void FillList(CustomListTableData list, IEnumerable<BannerMedia> media)
         {
             var cells = new List<CustomListTableData.CustomCellInfo>();
-            foreach (var tex in textures)
+            foreach (var tex in media)
             {
-                var cell = new CustomListTableData.CustomCellInfo(Path.GetFileNameWithoutExtension(tex.Name), null, Utilities.LoadSpriteFromTexture(tex.Default));
+                var cell = new CustomListTableData.CustomCellInfo(tex.GetDisplayName(), null, Utilities.LoadSpriteFromTexture(tex.Graphic.Default));
                 cells.Add(cell);
             }
 

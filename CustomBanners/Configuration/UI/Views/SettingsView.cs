@@ -15,13 +15,11 @@ namespace CustomBanners.Configuration.UI.Views
     [HotReload(RelativePathToLayout = @"SettingsView")]
     internal class SettingsView : BSMLAutomaticViewController
     {
-        public event Action<bool> OnModToggled;
-
         private SiraLog _logger;
         private PluginConfig _config;
         private BannerManager _bannerManager;
 
-        private BannerManager.Banner _selectedBanner;
+        private Banner _selectedBanner;
 
         [UIParams] private readonly BSMLParserParams _parserParams = null;
 
@@ -36,6 +34,11 @@ namespace CustomBanners.Configuration.UI.Views
         public void SelectBanner(int idx)
         {
             _selectedBanner = _bannerManager.GetBanner((EBannerType) idx);
+            Update();
+        }
+
+        public void Update()
+        {
             _parserParams.EmitEvent("update");
         }
 
@@ -99,32 +102,6 @@ namespace CustomBanners.Configuration.UI.Views
             {
                 if (_selectedBanner == null) return;
                 _selectedBanner.Intensity = value;
-            }
-        }
-
-        private float WindStrength
-        {
-            get => _selectedBanner?.WindStrength ?? 0.5f;
-            set => _bannerManager.SetWindStrength(value);
-        }
-
-        private float BannerPosition
-        {
-            get => _config.Position;
-            set
-            {
-                _config.Position = value;
-                _bannerManager.SetPosition(value);
-            }
-        }
-
-        private bool IsModEnabled
-        {
-            get => _config.IsEnabled;
-            set
-            {
-                _config.IsEnabled = value;
-                OnModToggled?.Invoke(value);
             }
         }
     }

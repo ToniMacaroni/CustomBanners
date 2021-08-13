@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using CustomBanners.Graphics;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace CustomBanners
         public BannerMedia(IGraphic graphic)
         {
             Graphic = graphic;
-            Colored = NameWithoutExtension.EndsWith("_Color");
+            Colored = NameWithoutExtension.EndsWith("_Color", StringComparison.OrdinalIgnoreCase);
         }
 
         public string GetDisplayName()

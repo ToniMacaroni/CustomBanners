@@ -11,6 +11,12 @@ namespace CustomBanners.Configuration
     {
         public bool IsEnabled { get; set; } = true;
 
+        public bool EnableInSong { get; set; } = true;
+
+        public bool AutoSwitch { get; set; } = false;
+
+        public float AutoSwitchInterval { get; set; } = 5;
+
         public BannerConfig LeftBanner { get; set; } = new BannerConfig();
 
         public BannerConfig RightBanner { get; set; } = new BannerConfig();

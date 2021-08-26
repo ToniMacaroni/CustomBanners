@@ -10,6 +10,7 @@ using CustomBanners.Loaders;
 using Newtonsoft.Json;
 using SiraUtil.Tools;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace CustomBanners
@@ -31,17 +32,20 @@ namespace CustomBanners
 
         private readonly SiraLog _logger;
         private readonly PluginConfig _config;
+        private readonly SwitchManager _switchManager;
 
         private GameObject _container;
         private Vector3 _ogPosition;
         private Transform _parent;
 
         private bool _bannersEnabled;
+        private Scene _menuScene;
 
-        private BannerManager(SiraLog logger, PluginConfig config)
+        private BannerManager(SiraLog logger, PluginConfig config, SwitchManager switchManager)
         {
             _logger = logger;
             _config = config;
+            _switchManager = switchManager;
         }
 
         public void InitBanners(GameObject container)
@@ -49,7 +53,9 @@ namespace CustomBanners
             _container = Object.Instantiate(container);
             _container.name = "CustomBanners Container";
 
-            var bannerRenderers = _container.GetComponentsInChildren<Renderer>();
+            _menuScene = SceneManager.GetActiveScene();
+
+            var bannerRenderers = _container.GetComponentsInChildren<Renderer>().Where(x=>x.name=="Flag").ToArray();
 
             _parent = bannerRenderers[0].transform.parent.parent;
             _ogPosition = _parent.position;
@@ -67,6 +73,10 @@ namespace CustomBanners
             SetSize(_config.Size);
 
             BannersEnabled = _config.IsEnabled;
+
+            SetScope(_config.EnableInSong);
+
+            _switchManager.SetBanners(_banners);
         }
 
         public void SetPosition(float pos)
@@ -104,6 +114,25 @@ namespace CustomBanners
             }
         }
 
+        public void SetScope(bool showInSong)
+        {
+            if (!showInSong)
+            {
+                SceneManager.MoveGameObjectToScene(_container, _menuScene);
+                return;
+            }
+
+            Object.DontDestroyOnLoad(_container);
+        }
+
+        public void HideHighlighters()
+        {
+            foreach (var banner in _banners)
+            {
+                banner.HighlighterActive = false;
+            }
+        }
+
         public Banner GetBanner(EBannerType bannerType)
         {
             return _banners[(int) bannerType];
@@ -121,6 +150,7 @@ namespace CustomBanners
 
         public void Dispose()
         {
+            Object.DestroyImmediate(_container);
         }
 
         private void SetupBanner(Renderer renderer, BannerConfig bannerConfig)

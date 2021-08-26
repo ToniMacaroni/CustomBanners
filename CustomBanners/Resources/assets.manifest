@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 1378073998
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1e629034f6af6fc799003b2286a076d2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1cfde77f1dafb32b840c8c02b4e9bc6d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 183
+  Script: {instanceID: 0}
+Assets:
+- Assets/FlagContainer.prefab
+Dependencies: []

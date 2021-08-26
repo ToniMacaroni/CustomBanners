@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace CustomBanners.Loaders
 {
@@ -36,35 +37,62 @@ namespace CustomBanners.Loaders
         }
 
         /// <summary>
+        /// Get all medias with the Random flag
+        /// </summary>
+        /// <returns></returns>
+        public List<BannerMedia> GetRandoms()
+        {
+            return Images.Values.Where(x => x.Random).ToList();
+        }
+
+        public string GetRelativePath(string fullPath)
+        {
+            var dirName = _imageDirectory.FullName;
+            if (!dirName.EndsWith("\\")) dirName += "\\";
+            return fullPath.Replace(dirName, "");
+        }
+
+        /// <summary>
         /// Load a texture by it's name
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="file"></param>
         /// <param name="skipCheck">Skip file exists check</param>
         /// <param name="animated">is the subject an animated image</param>
-        public async Task LoadAsync(string fileName, bool skipCheck = false, bool animated = false)
+        public async Task LoadAsync(FileInfo file, bool skipCheck = false, bool animated = false)
         {
-            if (Images.ContainsKey(fileName)) return;
+            var relName = GetRelativePath(file.FullName);
+            if (Images.ContainsKey(relName)) return;
 
-            var file = _imageDirectory.File(fileName);
             if (!skipCheck && !file.Exists) return;
 
             var data = await file.ReadFileDataAsync();
             IGraphic graphic;
             if (animated)
             {
-                ProcessedAnimation gif = await AnimationUtilities.ProcessGIF(data, fileName);
-                GIFGraphic gifGraphic = new GIFGraphic(fileName, gif.textures.FirstOrDefault());
+                ProcessedAnimation gif = await AnimationUtilities.ProcessGIF(data, file.Name);
+                GIFGraphic gifGraphic = new GIFGraphic(file.Name, gif.textures.FirstOrDefault());
                 _bannerAnimationStateUpdater.Register(gifGraphic, gif);
                 _loadedAnimations.Add(gif);
                 graphic = gifGraphic;
             }
             else
             {
-                var tex = CommonExtensions.CreateTexture(data, fileName);
+                var tex = CommonExtensions.CreateTexture(data, Path.GetFileNameWithoutExtension(file.Name));
                 graphic = new TextureGraphic(tex);
             }
-            Images.Add(fileName, new BannerMedia(graphic));
+
+            var bannerMedia = new BannerMedia(graphic, relName);
+            bannerMedia.Random = file.Directory?.Name.Equals("random", StringComparison.OrdinalIgnoreCase)??false;
+
+            Images.Add(relName, bannerMedia);
         }
+
+        public async Task LoadAsync(string relativeName, bool skipCheck = false, bool animated = false)
+        {
+            var fullPath = Path.Combine(_imageDirectory.FullName, relativeName);
+            await LoadAsync(new FileInfo(fullPath), skipCheck, animated);
+        }
+
 
         /// <summary>
         /// Loads all textures from the "Images" loader
@@ -74,14 +102,14 @@ namespace CustomBanners.Loaders
         {
             if (IsLoaded) return;
 
-            foreach (var file in _imageDirectory.EnumerateFiles())
+            foreach (var file in _imageDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories))
             {
                 if (!HandledExtensions.Contains(file.Extension)) continue;
 
                 // don't load the template
                 if (string.Equals(file.Name, "template.png", StringComparison.OrdinalIgnoreCase)) continue;
 
-                await LoadAsync(file.Name, true, file.Extension == ".gif");
+                await LoadAsync(file, true, file.Extension == ".gif");
             }
 
             IsLoaded = true;

@@ -12,6 +12,7 @@ namespace CustomBanners.Installers
         {
             Container.BindInterfacesAndSelfTo<Initializer>().AsSingle();
             Container.BindInterfacesAndSelfTo<BannerManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SwitchManager>().AsSingle();
 
             // UI stuff
             Container.Bind<ImageListView>().FromNewComponentAsViewController().AsSingle();

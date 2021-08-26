@@ -66,10 +66,19 @@ namespace CustomBanners.Configuration.UI.Views
             SelectBanner(0);
         }
 
+        protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        {
+            base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);
+            if (_selectedBanner is { })
+            {
+                _selectedBanner.HighlighterActive = true;
+            }
+        }
+
         [UIAction("image-selected")]
         private void OnImageSelected(TableView _, int idx)
         {
-            _selectedBanner.SetMedia(_mediaList[idx]);
+            _selectedBanner.SetMediaAnimated(_mediaList[idx], BannerSwitcher.ETransitionSpeed.Fast);
             OnImageChanged?.Invoke();
         }
 
@@ -86,9 +95,20 @@ namespace CustomBanners.Configuration.UI.Views
         private void SelectBanner(int idx)
         {
             _selectedBannerIndex = idx;
+
+            if (_selectedBanner is { })
+            {
+                _selectedBanner.HighlighterActive = false;
+            }
+
             _selectedBanner = _bannerManager.GetBanner((EBannerType) idx);
 
-            var texIdx = GetTexIndex(_selectedBanner?.Graphic?.Name);
+            if (_selectedBanner is { })
+            {
+                _selectedBanner.HighlighterActive = true;
+            }
+
+            var texIdx = GetTexIndex(_selectedBanner?.Graphic1?.Name);
             if (texIdx!=-1)
             {
                 _imageList.tableView.SelectCellWithIdx(texIdx);

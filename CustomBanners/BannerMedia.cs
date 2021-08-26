@@ -11,21 +11,23 @@ namespace CustomBanners
 
         public string Name => Graphic.Name;
 
-        public string NameWithoutExtension => Path.GetFileNameWithoutExtension(Name);
+        public string RelativeName { get; }
 
         public bool Colored { get; }
 
-        public BannerMedia(IGraphic graphic)
+        public bool Random { get; set; }
+
+        public BannerMedia(IGraphic graphic, string relativeName)
         {
             Graphic = graphic;
-            Colored = NameWithoutExtension.EndsWith("_Color", StringComparison.OrdinalIgnoreCase);
+            RelativeName = relativeName;
+            Colored = Name.EndsWith("_Color", StringComparison.OrdinalIgnoreCase);
         }
 
         public string GetDisplayName()
         {
-            var name = NameWithoutExtension;
-            if (!Colored) return name;
-            return NameWithoutExtension.Substring(0, NameWithoutExtension.Length - "_Color".Length);
+            if (!Colored) return Name;
+            return Name.Substring(0, Name.Length - "_Color".Length);
         }
     }
 }

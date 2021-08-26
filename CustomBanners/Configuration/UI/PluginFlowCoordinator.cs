@@ -58,6 +58,7 @@ namespace CustomBanners.Configuration.UI
 
             base.BackButtonWasPressed(topViewController);
             _mainFlowCoordinator.DismissFlowCoordinator(this);
+            _bannerManager.HideHighlighters();
         }
 
         private void Cleanup()

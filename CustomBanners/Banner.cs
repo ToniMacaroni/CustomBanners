@@ -108,10 +108,10 @@ namespace CustomBanners
 
         public float WindStrength
         {
-            get => _config.WindStrength;
+            get => _windStrength;
             set
             {
-                _config.WindStrength = value;
+                _windStrength = value;
                 _cloth.externalAcceleration = new Vector3(0, 0, -value);
             }
         }
@@ -138,6 +138,7 @@ namespace CustomBanners
         private readonly BannerUpdateUnit _tex2UpdateUnit;
 
         private readonly GameObject _highlighter;
+        private float _windStrength = 0.5f;
 
         public Banner(Renderer renderer, BannerConfig config)
         {
@@ -150,7 +151,6 @@ namespace CustomBanners
             Material = renderer.material;
 
             HighlighterActive = false;
-            WindStrength = WindStrength;
             GlowEnabled = GlowEnabled;
             ShouldTint = ShouldTint;
             Tint = Tint;

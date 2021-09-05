@@ -22,8 +22,6 @@ namespace CustomBanners.Configuration.UI.Views
         private BannerManager _bannerManager;
         private SwitchManager _switchManager;
 
-        private Banner _selectedBanner;
-
         [UIParams] private readonly BSMLParserParams _parserParams = null;
 
         [Inject]
@@ -37,7 +35,7 @@ namespace CustomBanners.Configuration.UI.Views
 
         private float WindStrength
         {
-            get => _selectedBanner?.WindStrength ?? 0.5f;
+            get => _config.WindStrength;
             set => _bannerManager.SetWindStrength(value);
         }
 

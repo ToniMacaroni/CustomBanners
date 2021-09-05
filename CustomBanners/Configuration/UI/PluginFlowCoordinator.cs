@@ -41,7 +41,7 @@ namespace CustomBanners.Configuration.UI
         {
             if (firstActivation)
             {
-                SetTitle("Custom Banners");
+                SetTitle("Custom Banners <color=#000000EE><size=4><voffset=0.1em> by Toni Macaroni</voffset></size></color>");
                 showBackButton = true;
                 ProvideInitialViewControllers(_imageListView, _globalSettingsView, _settingsView);
             }

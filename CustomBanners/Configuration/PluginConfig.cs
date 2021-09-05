@@ -23,5 +23,7 @@ namespace CustomBanners.Configuration
 
         public float Position { get; set; } = 0f;
         public float Size { get; set; } = 1f;
+        public float WindStrength { get; set; } = 0.5f;
+
     }
 }

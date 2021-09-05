@@ -77,6 +77,8 @@ namespace CustomBanners
             SetScope(_config.EnableInSong);
 
             _switchManager.SetBanners(_banners);
+            
+            SetWindStrength(_config.WindStrength);
         }
 
         public void SetPosition(float pos)
@@ -106,6 +108,8 @@ namespace CustomBanners
 
         public void SetWindStrength(float strength)
         {
+            _config.WindStrength = strength;
+
             foreach (var banner in _banners)
             {
                 banner.ClothActive = false;

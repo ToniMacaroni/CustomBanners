@@ -8,6 +8,7 @@ using BeatSaberMarkupLanguage;
 using CustomBanners.Configuration;
 using CustomBanners.Loaders;
 using Newtonsoft.Json;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;

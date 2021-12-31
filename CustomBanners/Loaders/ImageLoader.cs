@@ -2,6 +2,7 @@ using CustomBanners.Animations;
 using CustomBanners.Graphics;
 using CustomBanners.Helpers;
 using IPA.Utilities;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using System;
 using System.Collections.Generic;

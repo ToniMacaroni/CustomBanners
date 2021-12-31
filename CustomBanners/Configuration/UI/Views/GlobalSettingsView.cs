@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Parser;
 using SiraUtil.Tools;
 using Zenject;
-
+using SiraUtil.Logging;
 
 namespace CustomBanners.Configuration.UI.Views
 {

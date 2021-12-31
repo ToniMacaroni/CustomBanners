@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CustomBanners.Configuration;
 using CustomBanners.Loaders;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using UnityEngine;
 using Zenject;

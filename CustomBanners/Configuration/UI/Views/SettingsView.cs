@@ -5,6 +5,7 @@ using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
 using BeatSaberMarkupLanguage.ViewControllers;
 using CustomBanners.Loaders;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using UnityEngine;
 using Zenject;

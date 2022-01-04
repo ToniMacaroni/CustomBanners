@@ -5,6 +5,7 @@ using BeatSaberMarkupLanguage.ViewControllers;
 using System;
 using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Parser;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using Zenject;
 

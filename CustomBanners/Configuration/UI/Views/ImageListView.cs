@@ -16,6 +16,7 @@ using SiraUtil.Tools;
 using UnityEngine;
 using Zenject;
 using CustomBanners.Graphics;
+using SiraUtil.Logging;
 
 namespace CustomBanners.Configuration.UI.Views
 {

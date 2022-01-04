@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using CustomBanners.Helpers;
+using SiraUtil.Logging;
 using SiraUtil.Tools;
 using UnityEngine;
 

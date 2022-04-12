@@ -3,8 +3,8 @@
     <text text='Global Settings' align='Center'/>
     <checkbox text='Enabled' value='IsModEnabled' apply-on-change='true'/>
     <checkbox text='Enable in song' value='EnabledInSong' apply-on-change='true'/>
-    <checkbox text='Auto Switch' value='AutoSwitch' apply-on-change='true' hover-hint='Automatically change the banner after some amount of seconds' />
-    <slider-setting value='AutoSwitchInterval' text='Auto Switch Invterval' min='2' max='20' increment='1' apply-on-change='true'
+    <checkbox text='Auto Switch' value='AutoSwitch' apply-on-change='true' hover-hint='Automatically change the banner after some amount of seconds'/>
+    <slider-setting value='AutoSwitchInterval' text='Auto Switch Interval' min='2' max='20' increment='1' apply-on-change='true'
                     hover-hint='How many seconds to wait before changing the banner'/>
     <slider-setting value='BannerPosition' text='Distance' max='15' increment='0.5' apply-on-change='true'/>
     <slider-setting value='BannerSize' text='Size' min='0.5' max='2' increment='0.1' apply-on-change='true'/>

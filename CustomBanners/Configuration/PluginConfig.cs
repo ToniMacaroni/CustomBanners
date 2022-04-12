@@ -14,6 +14,7 @@ namespace CustomBanners.Configuration
         public bool EnableInSong { get; set; } = true;
 
         public bool AutoSwitch { get; set; } = false;
+        public bool ConsistentAutoSwitch { get; set; } = false;
 
         public float AutoSwitchInterval { get; set; } = 5;
 

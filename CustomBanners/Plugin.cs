@@ -11,6 +11,7 @@ namespace CustomBanners
 {
 
     [Plugin(RuntimeOptions.DynamicInit)]
+    [NoEnableDisable]
     public class Plugin
     {
 
@@ -24,16 +25,6 @@ namespace CustomBanners
             zenjector.UseLogger(logger);
             zenjector.Install<PluginAppInstaller>(Location.App, conf.Generated<PluginConfig>());
             zenjector.Install<PluginMenuInstaller>(Location.Menu);
-        }
-
-        [OnEnable]
-        public void OnEnable()
-        {
-        }
-
-        [OnDisable]
-        public void OnDisable()
-        {
         }
     }
 }

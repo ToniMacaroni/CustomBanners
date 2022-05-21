@@ -29,13 +29,13 @@ namespace CustomBanners.Animations
                 FrameInfo currentFrameInfo = animationInfo.frames[i];
                 delays[i] = currentFrameInfo.delay;
 
-                Texture2D frameTexture = new Texture2D(currentFrameInfo.width, currentFrameInfo.height, TextureFormat.RGBA32, false);
+                Texture2D frameTexture = new Texture2D(currentFrameInfo.width, currentFrameInfo.height, TextureFormat.BGRA32, false);
                 try
                 {
                     frameTexture.name = name;
                     if (i != 0)
                         frameTexture.name += $" ({i})";
-                    frameTexture.SetPixels32(currentFrameInfo.colors);
+                    frameTexture.LoadRawTextureData(currentFrameInfo.colors);
                     frameTexture.Apply();
                 }
                 catch

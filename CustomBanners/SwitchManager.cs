@@ -27,6 +27,7 @@ namespace CustomBanners
         }
 
         public float Interval;
+        public bool Consistent;
 
         public bool IsRunning { get; private set; }
 
@@ -46,6 +47,7 @@ namespace CustomBanners
             _siraLog = siraLog;
             _enabled = config.AutoSwitch;
             Interval = config.AutoSwitchInterval;
+            Consistent = config.ConsistentAutoSwitch;
         }
 
         public void Init()
@@ -94,8 +96,6 @@ namespace CustomBanners
 
         private async Task Loop(CancellationToken token)
         {
-            var prev = new int[_banners.Count];
-
             while (true)
             {
                 if (token.IsCancellationRequested)
@@ -103,17 +103,36 @@ namespace CustomBanners
                     return;
                 }
 
-                foreach (var banner in _banners)
+                if (Consistent)
                 {
                     var idx = Random.Range(0, RandomPool.Count);
-                    while (idx == banner.LastIndex)
+                    while (idx == _banners[0].LastIndex)
                     {
                         idx = Random.Range(0, RandomPool.Count);
                     }
 
-                    banner.LastIndex = idx;
-                    banner.Banner.SetMediaAnimated(RandomPool[idx], BannerSwitcher.ETransitionSpeed.Slow);
+                    foreach (var banner in _banners)
+                    {
+                        banner.LastIndex = idx;
+                        banner.Banner.SetMediaAnimated(RandomPool[idx], BannerSwitcher.ETransitionSpeed.Slow);
+                    }
                 }
+                
+                else
+                {
+                    foreach (var banner in _banners)
+                    {
+                        var idx = Random.Range(0, RandomPool.Count);
+                        while (idx == banner.LastIndex)
+                        {
+                            idx = Random.Range(0, RandomPool.Count);
+                        }
+
+                        banner.LastIndex = idx;
+                        banner.Banner.SetMediaAnimated(RandomPool[idx], BannerSwitcher.ETransitionSpeed.Slow);
+                    }   
+                }
+                
                 await Task.Delay((int)Interval*1000, token);
             }
         }

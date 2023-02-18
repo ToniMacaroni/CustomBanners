@@ -91,6 +91,16 @@ namespace CustomBanners.Configuration.UI.Views
                 _switchManager.Enabled = value;
             }
         }
+        
+        private bool ConsistentAutoSwitch
+        {
+            get => _config.ConsistentAutoSwitch;
+            set
+            {
+                _config.ConsistentAutoSwitch = value;
+                _switchManager.Consistent = value;
+            }
+        }
 
         private float AutoSwitchInterval
         {

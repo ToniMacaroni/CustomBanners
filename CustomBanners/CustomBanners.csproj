@@ -8,7 +8,7 @@
     <LocalRefsDir Condition="Exists('..\Refs')">..\Refs</LocalRefsDir>
     <BeatSaberDir>$(LocalRefsDir)</BeatSaberDir>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <Copyright>Copyright © Toni Macaroni 2021</Copyright>
+    <Copyright>Copyright © Toni Macaroni 2023</Copyright>
     <AssemblyName>CustomBanners</AssemblyName>
     <RootNamespace>CustomBanners</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -22,7 +22,7 @@
     <DefineConstants>TRACE;DEBUG;RESHARPER</DefineConstants>
 
     <StartAction>Program</StartAction>
-    <StartProgram>G:\Program Files %28x86%29\Steam\steam.exe</StartProgram>
+    <StartProgram>E:\Program Files %28x86%29\Steam\steam.exe</StartProgram>
     <StartArguments>-applaunch 620980 -vrmode oculus --verbose fpfc</StartArguments>
   </PropertyGroup>
 

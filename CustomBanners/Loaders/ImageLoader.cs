@@ -17,7 +17,7 @@ namespace CustomBanners.Loaders
     {
         public bool IsLoaded { get; private set; }
 
-        public Dictionary<string, BannerMedia> Images;
+        public Dictionary<string, BannerMedia> Images { get; set; }
 
         private readonly List<ProcessedAnimation> _loadedAnimations = new List<ProcessedAnimation>();
         private readonly BannerAnimationStateUpdater _bannerAnimationStateUpdater;
@@ -81,7 +81,7 @@ namespace CustomBanners.Loaders
                 var tex = CommonExtensions.CreateTexture(data, Path.GetFileNameWithoutExtension(file.Name));
                 graphic = new TextureGraphic(tex);
             }
-
+            
             var bannerMedia = new BannerMedia(graphic, relName);
             bannerMedia.Random = file.Directory?.Name.Equals("random", StringComparison.OrdinalIgnoreCase)??false;
 

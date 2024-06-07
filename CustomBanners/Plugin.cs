@@ -21,7 +21,7 @@ namespace CustomBanners
         public void Init(IPALogger logger, Config conf, Zenjector zenjector)
         {
             Name = Assembly.GetExecutingAssembly().GetName().Name;
-
+            SharedCoroutineStarter.Init();
             zenjector.UseLogger(logger);
             zenjector.Install<PluginAppInstaller>(Location.App, conf.Generated<PluginConfig>());
             zenjector.Install<PluginMenuInstaller>(Location.Menu);

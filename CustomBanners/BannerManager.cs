@@ -162,6 +162,7 @@ namespace CustomBanners
         {
             var banner = new Banner(renderer, bannerConfig);
             _banners.Add(banner);
+            AssetBundleLoadingTools.Utilities.ShaderRepair.FixShadersOnGameObject(banner.GameObject);
         }
     }
 }

@@ -68,7 +68,6 @@
     <ItemGroup>
       <OldFinalDir Include="$(ArtifactDestination)\**\*.*" />
       <OldZips Include="$(DestinationDirectory)$(AssemblyName)*.zip"/>
-      <UserDataFiles Include="$(BeatSaberDir)\UserData\CustomBanners\Images\Template.png"/>
     </ItemGroup>
     <Delete Files="@(OldFinalDir)" TreatErrorsAsWarnings="true" ContinueOnError="true" />
     <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(ArtifactDestination)\Plugins\$(AssemblyName).dll" />

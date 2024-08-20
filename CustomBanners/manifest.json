@@ -3,12 +3,13 @@
   "id": "CustomBanners",
   "name": "CustomBanners",
   "author": "Toni Macaroni",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Give your menu a little spice",
-  "gameVersion": "1.37.0",
+  "gameVersion": "1.37.2",
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "SiraUtil": "^3.0.0",
-    "BeatSaberMarkupLanguage": "^1.6.10"
+    "BeatSaberMarkupLanguage": "^1.6.10",
+    "AssetBundleLoadingTools": "^1.1.7"
   }
 }

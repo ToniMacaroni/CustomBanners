@@ -73,6 +73,9 @@ namespace CustomBanners
             _switchManager.SetBanners(_banners);
             
             SetWindStrength(_config.WindStrength);
+
+            // MultiPass rendering need to be activated by the player for Banners to display properly.
+            AssetBundleLoadingTools.Utilities.ShaderRepair.FixShadersOnGameObject(container);
         }
 
         public void SetPosition(float pos)

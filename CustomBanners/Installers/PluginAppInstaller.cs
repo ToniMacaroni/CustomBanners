@@ -1,9 +1,7 @@
 using CustomBanners.Animations;
 using CustomBanners.Configuration;
 using CustomBanners.Loaders;
-using SiraUtil;
 using Zenject;
-using Logger = IPA.Logging.Logger;
 
 namespace CustomBanners.Installers
 {

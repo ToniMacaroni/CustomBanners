@@ -2,14 +2,12 @@ using CustomBanners.Animations;
 using CustomBanners.Graphics;
 using CustomBanners.Helpers;
 using IPA.Utilities;
-using SiraUtil.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using SiraUtil.Logging;
-using UnityEngine;
 
 namespace CustomBanners.Loaders
 {

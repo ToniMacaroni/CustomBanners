@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using BeatSaberMarkupLanguage;
 using CustomBanners.Configuration;
-using CustomBanners.Loaders;
-using Newtonsoft.Json;
 using SiraUtil.Logging;
-using SiraUtil.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;

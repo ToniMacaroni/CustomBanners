@@ -104,11 +104,11 @@ namespace CustomBanners.Configuration.UI.Views
             var texIdx = GetTexIndex(_selectedBanner?.Graphic1?.Name);
             if (texIdx!=-1)
             {
-                _imageList.tableView.SelectCellWithIdx(texIdx);
+                _imageList.TableView.SelectCellWithIdx(texIdx);
             }
             else
             {
-                _imageList.tableView.ClearSelection();
+                _imageList.TableView.ClearSelection();
             }
 
             NotifyPropertyChanged(nameof(SelectedBanner));
@@ -141,8 +141,8 @@ namespace CustomBanners.Configuration.UI.Views
                 cells.Add(cell);
             }
 
-            list.data = cells;
-            list.tableView.ReloadData();
+            list.Data = cells;
+            list.TableView.ReloadData();
         }
     }
 }

@@ -9,7 +9,6 @@
   "dependsOn": {
     "BSIPA": "^4.3.5",
     "SiraUtil": "^3.1.11",
-    "BeatSaberMarkupLanguage": "^1.12.1",
-    "AssetBundleLoadingTools": "^1.1.9"
+    "BeatSaberMarkupLanguage": "^1.12.1"
   }
 }

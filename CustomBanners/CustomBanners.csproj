@@ -38,11 +38,6 @@
     <None Remove="Resources\assets" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AssetBundleLoadingTools">
-      <HintPath>$(BeatSaberDir)\Plugins\AssetBundleLoadingTools.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="BeatmapCore">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
       <Private>False</Private>

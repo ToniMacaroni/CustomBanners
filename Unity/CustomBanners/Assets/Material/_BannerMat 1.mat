@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _BannerMat 1
+  m_Shader: {fileID: 4800000, guid: a385f6c930df203479d95a2d28425dd9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - BOTH_SIDES_DIFFUSE
+  - EMISSION_TEXTURE
+  - ENABLE_FOG
+  - FOG
+  - REFLECTION_PROBE_BOX_PROJECTION
+  - SQUARE_ALPHA
+  - _ALPHABLEND_ON
+  - _ALPHACHANNEL_ALPHA
+  - _BLENDDSTFACTORA_ADD
+  - _BLENDDSTFACTORA_ONEMINUSSRCALPHA
+  - _BLENDSRCFACTORA_ADD
+  - _BLENDSRCFACTORA_SRCALPHA
+  - _EMISSION
+  - _ENABLE_COLOR_INSTANCING
+  - _FOGTYPE_NONE
+  - _RIMLIGHT_NONE
+  - _VERTEXCHANNELS_RGBA
+  - _WHITEBOOSTTYPE_ALWAYS
+  - _ZWRITE_ON
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2600
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 17292d5a17f64e04cbf65781fba83c0e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 22e44a5bcfd08a84fb3d21473cbf3532, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecMainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaChannel: 0
+    - _AlphaMultiplier: 1
+    - _Billboard: 0
+    - _BlendDstFactor: 1
+    - _BlendDstFactorA: 10
+    - _BlendOp: 0
+    - _BlendSrcFactor: 1
+    - _BlendSrcFactorA: 5
+    - _BloomFactor: 1
+    - _BothSideDiffuseStrength: 0.3
+    - _BumpScale: 1
+    - _CUTOUT: 0
+    - _ChromAberrAmountX: 0.03
+    - _ChromAberrAmountY: 0.01
+    - _CloseToCameraFactor: 0.5
+    - _CloseToCameraOffset: 0.5
+    - _ColorMask: 15
+    - _Cull: 2
+    - _CullMode: 0
+    - _Cutoff: 0.5
+    - _Cutout: 0
+    - _CutoutTexScale: 1
+    - _CutoutValue: 0
+    - _CutoutZThreshold: -1
+    - _CutoutZWidth: 3
+    - _DetailNormalMapScale: 1
+    - _DirtDetailIntensity: 1
+    - _DirtIntensity: 1
+    - _DstBlend: 10
+    - _EdgeFading: 0
+    - _EmissionThreshold: 0
+    - _EnableBothSidesDiffuse: 1
+    - _EnableBothSidesPrivate: 0
+    - _EnableBoxProjectionOffset: 0
+    - _EnableCloseToCameraDisappear: 0
+    - _EnableColorInstancing: 1
+    - _EnableCutout: 0
+    - _EnableDiffuse: 0
+    - _EnableDiffuseTexture: 0
+    - _EnableDirt: 0
+    - _EnableDirtDetail: 0
+    - _EnableEmissionTexture: 1
+    - _EnableFog: 1
+    - _EnableGroundFade: 0
+    - _EnableHeightFog: 0
+    - _EnableHologram: 0
+    - _EnableInstancedColor: 0
+    - _EnableLifetime: 0
+    - _EnableLightFalloff: 0
+    - _EnableLightmap: 0
+    - _EnableMainEffectWhiteBoost: 0
+    - _EnableMask: 0
+    - _EnableNoiseDithering: 0
+    - _EnableNormalMap: 0
+    - _EnableReflectionProbe: 0
+    - _EnableReflectionTexture: 0
+    - _EnableRimDim: 0
+    - _EnableSoftParticles: 0
+    - _EnableSpecular: 0
+    - _EnableSpecularTexture: 0
+    - _EnableTextureColor: 0
+    - _EnableVertexColor: 0
+    - _EnableVertexEmission: 0
+    - _EnableViewAlignDisappear: 0
+    - _FadeEdgeSize: 1
+    - _FadeMaxY: 10
+    - _FadeMinY: 0
+    - _FadeOutStrength: 0
+    - _FlipUV: 0
+    - _Fog: 0
+    - _FogScale: 1
+    - _FogStartOffset: 0
+    - _FogType: 0
+    - _Glitch: 0.7
+    - _GlitchEffect: 12.4
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _GrayscaleColorAlphaLERP: 0
+    - _GreenVertexSpecular: 0
+    - _GroundFadeOffset: 1
+    - _GroundFadeScale: 0.5
+    - _HighlightSelection: 0
+    - _Intensity: 1.5
+    - _InvertDiffuseNormal: 0
+    - _InvertRimDim: 0
+    - _LeftStripesAmount: 1
+    - _LeftStripesFill: 0.7
+    - _LightRimOffset: 0
+    - _LightRimScale: 0
+    - _LinearToGamma: 0
+    - _MaskRedIsAlpha: 0
+    - _MaskTexture: 0
+    - _Metallic: 0
+    - _Mode: 2
+    - _NoiseDithering: 0
+    - _NormalScale: 1
+    - _OcclusionStrength: 1
+    - _OffsetFactor: 0
+    - _OffsetUnits: 0
+    - _Overglow: 0
+    - _Panning: 0
+    - _PanningMultiply: 0
+    - _PanningPolar: 0
+    - _Parallax: 0.02
+    - _PreciseFog: 0
+    - _PrivatePointLight: 0
+    - _Radial: 0
+    - _RedIsVertexAlpha: 0
+    - _ReflectionIntensity: 1
+    - _ReflectionProbeBoxProjection: 1
+    - _ReflectionProbeIntensity: 1
+    - _ReflectionTexIntensity: 1
+    - _RightStripesAmount: 1
+    - _RightStripesFill: 0.7
+    - _RimCameraDistanceOffset: 2
+    - _RimCameraDistanceScale: 0.3
+    - _RimDarkening: 0
+    - _RimLight: 0
+    - _RimLightEdgeStart: 0.5
+    - _RimLightIntensity: 1
+    - _RimOffset: 1
+    - _RimScale: 1
+    - _SegmentToHighlight: -1
+    - _Shine: 0
+    - _ShineRotation: -1
+    - _ShineSpacing: 5
+    - _ShineSpeed: 2
+    - _ShineTiling: 5
+    - _Smoothness: 1
+    - _SmoothnessTextureChannel: 0
+    - _SoftFactor: 0
+    - _SpecularHardness: 32
+    - _SpecularHighlights: 1
+    - _SpecularIntensity: 0.1
+    - _SphericalNormalOffsetIntensity: 0.5
+    - _SquareAlpha: 1
+    - _SquareVertexAlpha: 0
+    - _SrcBlend: 5
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilPass: 0
+    - _StencilReadMask: 255
+    - _StencilRefValue: 0
+    - _StencilWriteMask: 255
+    - _TestOffset: 0
+    - _Transition: 0
+    - _UVColorSegments: 0
+    - _UVSec: 0
+    - _UseMonoScreenTexture: 0
+    - _UseSphericalNormalOffset: 0
+    - _UseUIAlphaClip: 0
+    - _VertexChannels: 0
+    - _ViewAlignFactor: 0.67
+    - _WavyDisplFreq: 50
+    - _WhiteBoostType: 2
+    - _ZTest: 4
+    - _ZWrite: 0
+    m_Colors:
+    - _Color: {r: 0, g: 0.7529412, b: 1, a: 1}
+    - _CutoutTexOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _DisplacementAmount: {r: 0, g: 0, b: 0.08, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 0.227451}
+    - _GlowCutoutColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HologramColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MaskPanning: {r: 0, g: 0, b: 0, a: 0}
+    - _PanningColor: {r: 0, g: 0, b: 1, a: 1}
+    - _PanningSpeed: {r: 0.5, g: 0.1, b: 0, a: 0}
+    - _PeakOffset: {r: 0, g: 10, b: 0, a: 1}
+    - _PrivatePointLightColor: {r: 11.98431, g: 11.98431, b: 11.98431, a: 0}
+    - _PrivatePointLightPosition: {r: 0, g: 3.35, b: 8.58, a: 1}
+    - _RadialColor: {r: 0, g: 0, b: 1, a: 1}
+    - _ReflectionProbeBoxProjectionPositionOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _ReflectionProbeBoxProjectionSizeOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _RimLightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _ShineColor: {r: 0, g: 0, b: 1, a: 1}
+    - _SphericalNormalOffsetCenter: {r: 0, g: 0, b: 0, a: 1}
+    - _TintColor: {r: 0, g: 0, b: 0, a: 0}
+    - _UvPanning: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

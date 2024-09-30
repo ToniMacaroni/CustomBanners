@@ -33,7 +33,6 @@ namespace CustomBanners.Loaders
 
         public async void Initialize()
         {
-            if (!_config.IsEnabled) return;
             await Load();
         }
 

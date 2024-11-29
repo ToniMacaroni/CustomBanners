@@ -64,7 +64,7 @@ namespace CustomBanners
             SetupBanner(bannerRenderers[1], _config.LeftBanner);
 
             SetPosition(_config.Position);
-            SetSize(_config.Size);
+            SetHeight(_config.Height);
 
             BannersEnabled = _config.IsEnabled;
 
@@ -82,7 +82,7 @@ namespace CustomBanners
                 banner.ClothActive = false;
             }
 
-            _parent.position = _ogPosition + new Vector3(0, 0, pos);
+            _parent.position = _ogPosition + new Vector3(0, _parent.position.y, pos);
 
             foreach (var banner in _banners)
             {
@@ -90,12 +90,17 @@ namespace CustomBanners
             }
         }
 
-        public void SetSize(float sizeMultiplier)
+        public void SetHeight(float height)
         {
             foreach (var banner in _banners)
             {
                 banner.ClothActive = false;
-                banner.Transform.parent.localScale = Vector3.one * sizeMultiplier;
+            }
+
+            _parent.position = _ogPosition + new Vector3(0, height - 1, _parent.position.z);
+
+            foreach (var banner in _banners)
+            {
                 banner.ClothActive = true;
             }
         }

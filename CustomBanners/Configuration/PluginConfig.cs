@@ -20,7 +20,7 @@ namespace CustomBanners.Configuration
         public BannerConfig RightBanner { get; set; } = new BannerConfig();
 
         public float Position { get; set; } = 0f;
-        public float Size { get; set; } = 1f;
+        public float Height { get; set; } = 1f;
         public float WindStrength { get; set; } = 0.5f;
 
     }

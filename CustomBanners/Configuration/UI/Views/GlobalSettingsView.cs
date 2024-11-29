@@ -46,13 +46,13 @@ namespace CustomBanners.Configuration.UI.Views
             }
         }
 
-        private float BannerSize
+        private float BannerHeight
         {
-            get => _config.Size;
+            get => _config.Height;
             set
             {
-                _config.Size = value;
-                _bannerManager.SetSize(value);
+                _config.Height = value;
+                _bannerManager.SetHeight(value);
             }
         }
 

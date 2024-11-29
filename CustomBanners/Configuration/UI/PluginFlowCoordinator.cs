@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using BeatSaberMarkupLanguage;
-using CustomBanners.Configuration.UI.Views;
+﻿using CustomBanners.Configuration.UI.Views;
 using CustomBanners.Loaders;
 using HMUI;
-using IPA.Utilities;
-using UnityEngine;
 using Zenject;
-using Plugin = CustomBanners.Plugin;
 
 namespace CustomBanners.Configuration.UI
 {

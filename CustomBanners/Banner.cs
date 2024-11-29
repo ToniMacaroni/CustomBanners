@@ -1,7 +1,5 @@
 using CustomBanners.Configuration;
 using CustomBanners.Graphics;
-using CustomBanners.Loaders;
-using TMPro;
 using UnityEngine;
 
 namespace CustomBanners

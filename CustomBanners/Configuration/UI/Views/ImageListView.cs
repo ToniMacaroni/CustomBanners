@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
 using CustomBanners.Loaders;
-using CustomBanners.Helpers;
 using HMUI;
-using ModestTree;
-using SiraUtil.Tools;
-using UnityEngine;
 using Zenject;
-using CustomBanners.Graphics;
 using SiraUtil.Logging;
 
 namespace CustomBanners.Configuration.UI.Views
@@ -112,11 +104,11 @@ namespace CustomBanners.Configuration.UI.Views
             var texIdx = GetTexIndex(_selectedBanner?.Graphic1?.Name);
             if (texIdx!=-1)
             {
-                _imageList.tableView.SelectCellWithIdx(texIdx);
+                _imageList.TableView.SelectCellWithIdx(texIdx);
             }
             else
             {
-                _imageList.tableView.ClearSelection();
+                _imageList.TableView.ClearSelection();
             }
 
             NotifyPropertyChanged(nameof(SelectedBanner));
@@ -149,8 +141,8 @@ namespace CustomBanners.Configuration.UI.Views
                 cells.Add(cell);
             }
 
-            list.data = cells;
-            list.tableView.ReloadData();
+            list.Data = cells;
+            list.TableView.ReloadData();
         }
     }
 }

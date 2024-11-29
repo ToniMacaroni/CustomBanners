@@ -1,12 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using CustomBanners;
+﻿using System.Threading.Tasks;
 using CustomBanners.Configuration;
 using SiraUtil.Logging;
-using SiraUtil.Tools;
 using Zenject;
 
 namespace CustomBanners.Loaders
@@ -39,7 +33,6 @@ namespace CustomBanners.Loaders
 
         public async void Initialize()
         {
-            if (!_config.IsEnabled) return;
             await Load();
         }
 

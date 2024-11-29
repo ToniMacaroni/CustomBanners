@@ -1,7 +1,6 @@
 ﻿using CustomBanners.Configuration.UI;
 using CustomBanners.Configuration.UI.Views;
 using CustomBanners.Loaders;
-using SiraUtil;
 using Zenject;
 
 namespace CustomBanners.Installers

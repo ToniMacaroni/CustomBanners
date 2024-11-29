@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
-using CustomBanners;
-using SiraUtil.Tools;
 
 namespace CustomBanners.Helpers
 {

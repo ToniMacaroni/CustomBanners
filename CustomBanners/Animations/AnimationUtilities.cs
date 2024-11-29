@@ -9,33 +9,32 @@ namespace CustomBanners.Animations
     {
         public static async Task<ProcessedAnimation> ProcessGIF(byte[] data, string name)
         {
-            AnimationInfo result = null;
-            await Coroutines.AsTask(GIFUnityDecoder.Process(data, info => result = info));
+            AnimationInfo result = await GIFUnityDecoder.ProcessAsync(data);
             return await ProcessAnimationInfo(result, name);
         }
 
         private static async Task<ProcessedAnimation> ProcessAnimationInfo(AnimationInfo animationInfo, string name)
         {
-            float[] delays = new float[animationInfo.frameCount];
-            Texture2D[] textures = new Texture2D[animationInfo.frameCount];
-            for (int i = 0; i < animationInfo.frameCount; i++)
+            float[] delays = new float[animationInfo.Frames.Count];
+            Texture2D[] textures = new Texture2D[animationInfo.Frames.Count];
+            for (int i = 0; i < animationInfo.Frames.Count; i++)
             {
-                if (animationInfo.frames.Count <= i)
+                if (animationInfo.Frames.Count <= i)
                 {
-                    while (animationInfo.frames.Count <= i)
+                    while (animationInfo.Frames.Count <= i)
                         await Task.Yield();
                 }
 
-                FrameInfo currentFrameInfo = animationInfo.frames[i];
-                delays[i] = currentFrameInfo.delay;
+                FrameInfo currentFrameInfo = animationInfo.Frames[i];
+                delays[i] = currentFrameInfo.Delay;
 
-                Texture2D frameTexture = new Texture2D(currentFrameInfo.width, currentFrameInfo.height, TextureFormat.BGRA32, false);
+                Texture2D frameTexture = new Texture2D(currentFrameInfo.Width, currentFrameInfo.Height, TextureFormat.BGRA32, false);
                 try
                 {
                     frameTexture.name = name;
                     if (i != 0)
                         frameTexture.name += $" ({i})";
-                    frameTexture.LoadRawTextureData(currentFrameInfo.colors);
+                    frameTexture.LoadRawTextureData(currentFrameInfo.Colors);
                     frameTexture.Apply();
                 }
                 catch

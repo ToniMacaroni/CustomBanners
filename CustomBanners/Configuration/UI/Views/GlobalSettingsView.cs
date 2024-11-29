@@ -1,12 +1,8 @@
-﻿using BeatSaberMarkupLanguage;
-using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Components;
+﻿using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using System;
-using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Parser;
 using SiraUtil.Logging;
-using SiraUtil.Tools;
 using Zenject;
 
 
@@ -50,13 +46,13 @@ namespace CustomBanners.Configuration.UI.Views
             }
         }
 
-        private float BannerSize
+        private float BannerHeight
         {
-            get => _config.Size;
+            get => _config.Height;
             set
             {
-                _config.Size = value;
-                _bannerManager.SetSize(value);
+                _config.Height = value;
+                _bannerManager.SetHeight(value);
             }
         }
 
